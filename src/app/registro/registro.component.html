@@ -1,0 +1,25 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="usuario" placeholder="Usuario">
+      <mat-error *ngIf="myForm.get('usuario')?.hasError('usuarioExistente')">
+        El nombre de usuario ya existe.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput type="password" formControlName="contrasena" placeholder="Contraseña">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="perfil" placeholder="Seleccione un perfil">
+          <mat-option *ngFor="let profile of datosPerfiles" [value]="profile.id_perfil">
+            {{ profile.perfil }} <!-- Ajusta según la propiedad real de nombre en tu interfaz Usuario -->
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Enviar</button>
+  </form>
+  <router-outlet></router-outlet>
+  
