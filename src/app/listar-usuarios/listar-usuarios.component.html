@@ -1,0 +1,32 @@
+<input [(ngModel)]="terminoBusqueda" placeholder="Buscar por usuario" (input)="actualizarUsuariosFiltrados()" />
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Perfil</th>
+        <th scope="col">Departamento</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let usuario of usuariosFiltrados.slice((paginaActual - 1) * itemsPorPagina, paginaActual * itemsPorPagina)">
+        <tr>
+          <th scope="row">{{ usuario.usuario }}</th>
+          <td>{{ usuario.nombre_perfil }}</td>
+          <td>{{ usuario.nombre_departamento }}</td>
+          <td><button (click)="editarUsuario(usuario)">Editar</button></td>
+        </tr>
+      </ng-container>
+    </tbody>
+    </table>
+    <pagination-controls (pageChange)="cambiarPagina($event)" [id]="'usuarios'" [autoHide]="true"></pagination-controls>
+    <div>
+      <button mat-button (click)="irPrimeraPagina()">Primera</button>
+      <button mat-button (click)="irPaginaAnterior()">Anterior</button>
+      <ng-container *ngFor="let numeroPagina of obtenerRangoPaginas()">
+        <button mat-button (click)="irPagina(numeroPagina)">{{ numeroPagina }}</button>
+      </ng-container>
+      <button mat-button (click)="irPaginaSiguiente()">Siguiente</button>
+    </div>
+    
+ <router-outlet></router-outlet>

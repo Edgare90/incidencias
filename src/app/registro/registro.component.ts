@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { Perfiles } from '../interfaces/perfiles';
 import { UsuarioService } from '../services/usuario.service';
+import { DepartamentoService } from '../services/departamento.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,6 +12,9 @@ import { AbstractControl } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { debounceTime, map, catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { Departamentos } from '../interfaces/departamentos';
 
 @Component({
   selector: 'app-registro',
@@ -20,15 +24,19 @@ import { of } from 'rxjs';
 export class RegistroComponent implements OnInit {
   datosUsuario: Usuario[] = [];
   datosPerfiles: Perfiles[] = [];
+  datosDepartamentos: Departamentos[] = [];
+  usuarioExistente: boolean = false; // Agrega esta línea
   myForm: FormGroup;
 
 
-  constructor(private usuarioServices : UsuarioService, private http: HttpClient,private formulario: FormBuilder){
+  constructor(private usuarioServices : UsuarioService, private http: HttpClient,private formulario: FormBuilder, private snackBar: MatSnackBar,private router: Router, private departamentoService : DepartamentoService){
     
     this.myForm = this.formulario.group({
       usuario: ['', Validators.required],
       contrasena: ['', Validators.required],
       perfil: [null, Validators.required],
+      email:['', [Validators.required, Validators.email]],
+      departamento:['',[Validators.required]]
     });
 
 
@@ -44,6 +52,15 @@ export class RegistroComponent implements OnInit {
       }
       );
 
+     this.departamentoService.getDepartamentos().subscribe(
+        (data) =>{
+          this.datosDepartamentos = data;
+        },
+        (error) =>{
+          console.log('Error al cargar departamentos',error);
+        }
+     )
+
   }
 
   onSubmit(){
@@ -52,10 +69,13 @@ export class RegistroComponent implements OnInit {
         const usuarioData = this.myForm.value;
         this.usuarioServices.guardarUsuario(usuarioData).subscribe(
           (respuesta) => {
-            console.log('Usuario guardado con éxito:', respuesta);
+            this.snackBar.open(respuesta.mensaje, 'Cerrar',{
+              duration: 3000,
+            });
+            this.myForm.reset();
           },
           (error) => {
-            console.error('Error al guardar el usuario:', error);
+            console.log('Error al insertar:', error);
           }
         );
       }
@@ -73,23 +93,20 @@ export class RegistroComponent implements OnInit {
     };
   }*/
 
-  usuarioDisponibleValidator(usuarioService: UsuarioService): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const usuario = control.value;
-      console.log("Entro a la funcion");
-      // Evitar realizar validación si el campo está vacío
-      if (!usuario) {
-        return of(null);
-      }
-  
-      // Retrasar la validación para evitar llamadas frecuentes mientras el usuario está escribiendo
-      return of(usuario).pipe(
-        debounceTime(20), // Esperar 300 milisegundos después de que el usuario deja de escribir
-        switchMap(() => usuarioService.verificarUsuarioExistente(usuario)), // Llamada al servicio
-        map(existe => (existe ? { usuarioExistente: true } : null)), // Mapear el resultado al objeto de errores
-        catchError(() => of(null)) // Manejar errores
-      );
-    };
+  validarUsuarioExistente()
+  {
+    //console.log("llego aqui");
+    const usuario = this.myForm.get('usuario')?.value;
+    this.usuarioServices.verificarUsuarioExistente(usuario).subscribe(
+      existe =>{
+        if (existe === true) {
+          this.myForm.get('usuario')?.setErrors({ 'usuarioExistente': true });
+        }
+      }, 
+      error => console.error('Error en la solicitud de verificación:', error)
+    );
   }
+
+
 
 }

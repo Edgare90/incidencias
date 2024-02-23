@@ -1,0 +1,19 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="departamento" placeholder="Departamento" (blur)="validarDeptoExistente()">
+      <mat-error *ngIf="myForm.get('departamento')?.hasError('deptoExistente')">
+        El nombre del departamento ya existe.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Estatus</mat-label>
+        <mat-select formControlName="estatus" placeholder="Seleccione un estatus">
+            <mat-option *ngFor="let perfil of perfiles" [value]="perfil">{{ perfil }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </form>
+  <router-outlet></router-outlet>
+  

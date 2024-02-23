@@ -14,12 +14,29 @@ import { MatInputModule } from '@angular/material/input';
 import { RegistroComponent } from './registro/registro.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { EditarUsuariosComponent } from './editar-usuarios/editar-usuarios.component';
+import { MatSnackBarModule  } from '@angular/material/snack-bar';
+import { ListarPefilesComponent } from './listar-pefiles/listar-pefiles.component';
+import { RecargaPerfilesService } from './services/recarga-perfiles.service';
+import { ListarDepartamentosComponent } from './listar-departamentos/listar-departamentos.component';
+import { AgregarDepartamentosComponent } from './agregar-departamentos/agregar-departamentos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    ListarUsuariosComponent,
+    EditarUsuariosComponent,
+    ListarPefilesComponent,
+    ListarDepartamentosComponent,
+    AgregarDepartamentosComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +50,15 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    NgxPaginationModule,
+    MatPaginatorModule,
   ],
-  providers: [],
+  providers: [RecargaPerfilesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

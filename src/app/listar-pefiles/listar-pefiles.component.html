@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="lista_perfiles" class="mat-elevation-z8">
+
+    <!-- Usuario Column -->
+    <ng-container matColumnDef="Perfil">
+      <th mat-header-cell *matHeaderCellDef> Perfil </th>
+      <td mat-cell *matCellDef="let perfil"> {{ perfil.perfil }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Estatus">
+        <th mat-header-cell *matHeaderCellDef> Estatus </th>
+        <td mat-cell *matCellDef="let perfil"> {{ perfil.estatus }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let perfil">
+        <button mat-button (click)="cambiaEstado(perfil.id_perfil)" [disabled]="perfil.estatus === 'ACT'">Activar</button>
+        <button mat-button (click)="cambiaEstado(perfil.id_perfil)" [disabled]="perfil.estatus === 'IN'">Desactivar</button>
+      </td>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let fila; columns: columnas;"></mat-row>
+  </table>
+ <router-outlet></router-outlet>

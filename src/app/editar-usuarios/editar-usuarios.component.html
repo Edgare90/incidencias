@@ -1,19 +1,22 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <input matInput formControlName="usuario" placeholder="Usuario" (blur)="validarUsuarioExistente()">
-      <mat-error *ngIf="myForm.get('usuario')?.hasError('usuarioExistente')">
+      <input matInput formControlName="usuario" placeholder="Usuario" required>
+      <mat-error *ngIf="myForm.get('usuario')?.hasError('required')">
         El nombre de usuario ya existe.
       </mat-error>
     </mat-form-field>
   
     <mat-form-field>
-      <input matInput type="password" formControlName="contrasena" placeholder="Contraseña">
+      <input matInput type="password" formControlName="contrasena" placeholder="Contraseña" required>
+      <mat-error *ngIf="myForm.get('contrasena')?.hasError('required') && myForm.get('contrasena')?.touched">
+        Contraseña es obligatoria.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-       <mat-label>Enter your email</mat-label>
+       <mat-label>Correo Electronico</mat-label>
       <input matInput placeholder="pat@example.com" formControlName="email" required>
-      <mat-error *ngIf="myForm.get('email')?.hasError('email')">
+      <mat-error *ngIf="myForm.get('email')?.hasError('required') && myForm.get('email')?.touched">
         El correo es obligatorio.
       </mat-error>
     </mat-form-field>
@@ -27,6 +30,15 @@
         </mat-select>
       </mat-form-field>
 
+
+      <mat-form-field>
+        <mat-label>Estatus</mat-label>
+        <mat-select formControlName="estatus" placeholder="Seleccione un estatus">
+          <mat-option [value]="'ACT'">ACTIVO</mat-option>
+          <mat-option [value]="'IN'">INACTIVO</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>Departamento</mat-label>
         <mat-select formControlName="departamento" placeholder="Seleccione un departamento">
@@ -35,11 +47,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
-      
   
-    <button mat-raised-button color="primary" type="submit">Enviar</button>
+    <button mat-raised-button color="primary" type="submit">Actualizar</button>
   </form>
   <router-outlet></router-outlet>
-  

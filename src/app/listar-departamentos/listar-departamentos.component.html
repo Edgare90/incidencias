@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="lista_deptos" class="mat-elevation-z8">
+
+    <!-- Usuario Column -->
+    <ng-container matColumnDef="Perfil">
+      <th mat-header-cell *matHeaderCellDef> Departamento </th>
+      <td mat-cell *matCellDef="let depto"> {{ depto.departamento }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Estatus">
+        <th mat-header-cell *matHeaderCellDef> Estatus </th>
+        <td mat-cell *matCellDef="let depto"> {{ depto.estatus }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let depto">
+        <button mat-button (click)="cambiaEstado(depto.id_departamento)" [disabled]="depto.estatus === 'ACT'">Activar</button>
+        <button mat-button (click)="cambiaEstado(depto.id_departamento)" [disabled]="depto.estatus === 'IN'">Desactivar</button>
+      </td>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let fila; columns: columnas;"></mat-row>
+  </table>
+ <router-outlet></router-outlet>
