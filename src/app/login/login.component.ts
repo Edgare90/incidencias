@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +11,10 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 })
 export class LoginComponent {
 
-    constructor(private formulario: FormBuilder){}
+    constructor(private formulario: FormBuilder,private authService: AuthService, private router:Router){}
 
     form: FormGroup = this.formulario.group({
-      username: ['',Validators.required],
+      email: ['',Validators.required],
       password: ['', Validators.required]
     })
 
@@ -20,7 +22,18 @@ export class LoginComponent {
     {
       if(this.form.valid)
       {
-        console.log(this.form.value);
+        const { email, password } = this.form.value;
+        this.authService.login(email, password).subscribe(
+          (response) => {
+            console.log('Login successful', response);
+            this.router.navigate(['/agrega-ticket']);
+            
+          },
+          (error) => {
+            console.error('Login failed', error);
+            // Manejar errores, mostrar mensajes de error, etc.
+          }
+        );
       }
     }
 

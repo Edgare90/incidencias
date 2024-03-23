@@ -1,0 +1,35 @@
+<div class="container">
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="dirigidoA">Dirigido:</label>
+            <select class="form-control" id="dirigidoASelect" formControlName="dirigidoA">
+                <option value="" selected>Elegir</option>
+                <option *ngFor="let depto of datosDepartamentos" value="{{depto.id_departamento}}">{{ depto.departamento }}</option>
+              </select>
+              <div *ngIf="myForm.get('dirigidoA')?.hasError('required') && (myForm.get('dirigidoA')?.dirty || myForm.get('dirigidoA')?.touched)" class="error-message">
+                Selecciona a quien va dirigido el ticket.
+              </div>
+        </div>
+        <div class="form-group">
+            <label for="comentario">Comentario</label>
+            <textarea class="form-control" id="comentarioTxt" rows="3" formControlName="comentario" (input)="resetComentarioTouched()"></textarea>
+            <div *ngIf="myForm.get('comentario')?.hasError('required') && (myForm.get('comentario')?.dirty || myForm.get('comentario')?.touched)" class="error-message">
+                Un comentario es requerido.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="files" class="form-label">Seleccione uno o mas archivos</label>
+            <input class="form-control" type="file" id="files" multiple (change)="onFileSelected($event)" formControlName="files">
+
+            <div *ngIf="myForm.get('files')?.hasError('invalidExtension') && (myForm.get('files')?.dirty || myForm.get('files')?.touched)">
+                Solo se permiten archivos con extensiones .jpg, .png, .xls o .doc.
+            </div>
+        </div>
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
+    </form>
+
+</div>
+
+<router-outlet></router-outlet>

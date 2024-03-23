@@ -83,14 +83,11 @@ export class ListarUsuariosComponent implements OnInit {
 
     actualizarUsuariosFiltrados(): void {
       if (this.terminoBusqueda.trim() === '') {
-        // Si el término de búsqueda está vacío, mostrar todos los usuarios
         this.usuariosFiltrados = this.datosUsuario;
       } else {
-        // Filtrar usuarios según el término de búsqueda
         this.usuariosFiltrados = this.datosUsuario.filter((usuario) =>
           usuario.usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
         );
-
         console.log(this.usuariosFiltrados);
       }
     }

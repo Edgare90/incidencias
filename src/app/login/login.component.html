@@ -4,8 +4,8 @@
       <form [formGroup]="form" (ngSubmit)="submit()">
         <p>
         <mat-form-field>
-          <input matInput placeholder="Username" formControlName="username">
-          <mat-error *ngIf="form.get('username')?.hasError('required')">Usuario requerido.</mat-error>
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="form.get('email')?.hasError('required')">Email requerido.</mat-error>
         </mat-form-field>
     </p>
     <p>

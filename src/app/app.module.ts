@@ -26,6 +26,12 @@ import { ListarDepartamentosComponent } from './listar-departamentos/listar-depa
 import { AgregarDepartamentosComponent } from './agregar-departamentos/agregar-departamentos.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AgregarIncidenciaComponent } from './agregar-incidencia/agregar-incidencia.component';
+import { EditarIncidenciaComponent } from './editar-incidencia/editar-incidencia.component';
+import { MisTicketsComponent } from './mis-tickets/mis-tickets.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
   declarations: [
@@ -36,7 +42,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     EditarUsuariosComponent,
     ListarPefilesComponent,
     ListarDepartamentosComponent,
-    AgregarDepartamentosComponent
+    AgregarDepartamentosComponent,
+    AgregarIncidenciaComponent,
+    EditarIncidenciaComponent,
+    MisTicketsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -57,6 +67,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSnackBarModule,
     NgxPaginationModule,
     MatPaginatorModule,
+    NgbModule,
   ],
   providers: [RecargaPerfilesService],
   bootstrap: [AppComponent]

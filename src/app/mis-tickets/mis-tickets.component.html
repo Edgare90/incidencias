@@ -1,0 +1,20 @@
+<input type="button" value="Exportar PDF" (click)="exportPDF()">
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">ID</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Detalles/Edicion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tickets of mis_tickets">
+        <th scope="row">{{ tickets.fecha_alta}}</th>
+        <td>{{ tickets.id_ticket}}</td>
+        <td>{{ tickets.usuario?.usuario}}</td>
+        <td><button (click)="editarTicket(tickets.id_ticket)">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>

@@ -1,0 +1,55 @@
+
+<button (click)="mostrarModal(content)">Imprimir Ticket</button>
+
+    <div *ngFor="let ticket of mis_tickets">
+        <p>Ticket : {{ ticket.id_ticket }}</p>
+        <p>Fecha : {{ ticket.fecha_alta }}</p>
+        <p>Usuario : {{ ticket.usuario?.usuario }}</p>
+        <p>Email : {{ ticket.usuario?.email }}</p>
+
+        <div *ngIf="ticket.comentarios && ticket.comentarios.length">
+            <div *ngFor="let comentario of ticket.comentarios">
+                <p>Fecha Comentario: {{ comentario.fecha_comentario }}</p>
+                <p>Comentario: {{ comentario.comentario }}</p>
+                <p>Usuario Comentario: {{ comentario.usr }}</p>
+            </div>
+        </div>
+
+
+            <div *ngIf="ticket.estatus && ticket.estatus.length"> 
+                    <section class="timeline">
+                        <ul>
+                          <li *ngFor="let status of ticket.estatus">
+                            <div>
+                                <time>{{ status.fecha }}</time>
+                                 {{ status.estatus_info.estatus_desc || 'N/A' }}
+                            </div>
+                        </li>
+                        </ul>
+                      </section>    
+            </div>
+            
+    </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="ticketModalLabel">Detalles del Ticket</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Aquí coloca el contenido del ticket -->
+        <div *ngFor="let ticket of mis_tickets">
+          <p>Ticket : {{ ticket.id_ticket }}</p>
+          <p>Fecha : {{ ticket.fecha_alta }}</p>
+          <p>Usuario : {{ ticket.usuario?.usuario }}</p>
+          <p>Email : {{ ticket.usuario?.email }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="imprimir()">Imprimir</button>
+      </div>
+    </ng-template>
+    
+
+
+
