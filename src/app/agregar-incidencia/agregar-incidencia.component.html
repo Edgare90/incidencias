@@ -3,7 +3,7 @@
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="dirigidoA">Dirigido:</label>
-            <select class="form-control" id="dirigidoASelect" formControlName="dirigidoA">
+            <select class="form-control" id="dirigidoASelect" formControlName="dirigidoA" multiple>
                 <option value="" selected>Elegir</option>
                 <option *ngFor="let depto of datosDepartamentos" value="{{depto.id_departamento}}">{{ depto.departamento }}</option>
               </select>
@@ -27,6 +27,21 @@
                 Solo se permiten archivos con extensiones .jpg, .png, .xls o .doc.
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="derivado"> Es este ticket derivado de otro ticket?</label>
+            <select id="derivado" (change)="onDerivadoChange()" formControlName="derivado">
+                <option value="" selected>Elegir</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <div class="form-group" *ngIf="isDerivado">
+            <label for="ticket_anterior">Número de ticket anterior:</label>
+            <input type="text" id="ticket_anterior" formControlName="ticketAnterior">
+        </div>
+
         <button mat-raised-button color="primary" type="submit">Enviar</button>
     </form>
 

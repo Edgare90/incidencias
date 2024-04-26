@@ -30,13 +30,16 @@ import { Router } from '@angular/router';
 export class AgregarIncidenciaComponent implements OnInit {
     myForm: FormGroup;
     datosDepartamentos: Departamentos[] = [];
+    isDerivado: boolean = false;
 
     constructor(private formulario: FormBuilder, private deptoService: DepartamentoService, private incidenciaSerive: IncidenciaService,private snackBar: MatSnackBar)
     {
       this.myForm = this.formulario.group({
         dirigidoA: ['', Validators.required],
         comentario: ['', Validators.required],
-        files: [null,Validators.required]
+        files: [null,Validators.required],
+        derivado: ['', Validators.required],
+        ticketAnterior: ['']
       });
     }
 
@@ -119,4 +122,20 @@ export class AgregarIncidenciaComponent implements OnInit {
         comentarioControl.markAsUntouched();
       }
     }
+
+    onDerivadoChange() {
+      const derivadoControl = this.myForm.get('derivado');
+      const ticketAnteriorControl = this.myForm.get('ticketAnterior');
+      if (derivadoControl?.value === 'si' && ticketAnteriorControl) {
+          this.isDerivado = true;
+          ticketAnteriorControl.setValidators([Validators.required]);
+      } else {
+          this.isDerivado = false;
+          if (ticketAnteriorControl) {
+              ticketAnteriorControl.clearValidators();
+              ticketAnteriorControl.reset();
+              ticketAnteriorControl.updateValueAndValidity();
+          }
+      }
+  }
 }
