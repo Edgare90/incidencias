@@ -3,6 +3,7 @@ import { ActivatedRoute  } from '@angular/router';
 import { IncidenciaService } from '../services/incidencia.service';
 import { Ticket } from '../interfaces/ticket';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Estatus } from '../interfaces/estatus';
 
 
 @Component({
@@ -13,10 +14,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class EditarIncidenciaComponent implements OnInit {
   ticketId: string = '';
   mis_tickets : Ticket[] = [];
+  estatus: Estatus[] = [];
   @Input() statuses: any[] = [];
   @ViewChild('content') modalContent!: ElementRef;
   private ngAfterViewInitCompleted = false;
   private modalService = inject(NgbModal);
+  id_ticket_estatus: number = 0;
+  id_estatus_ticket: number = 0;
 	closeResult = '';
 
   constructor(private route: ActivatedRoute, private incidenciaService: IncidenciaService){}
@@ -41,6 +45,22 @@ export class EditarIncidenciaComponent implements OnInit {
             console.log('No se encontraron tickets para el id');
           }
           console.log(this.mis_tickets);
+          
+           // Obtener el id_ticket_estatus más alto y su correspondiente id_estatus
+           const maximos = this.mis_tickets.reduce((maximos, ticket) => {
+            if (ticket.estatus) {
+                ticket.estatus.forEach(est => {
+                    if (est.id_ticket_estatus > maximos.id_ticket_estatus) {
+                        maximos.id_ticket_estatus = est.id_ticket_estatus;
+                        maximos.id_estatus = est.estatus_info.id_estatus;
+                    }
+                });
+            }
+            return maximos;
+        }, { id_ticket_estatus: -Infinity, id_estatus: undefined as number | undefined });
+        this.id_ticket_estatus = maximos.id_ticket_estatus;
+        this.id_estatus_ticket = maximos.id_estatus !== undefined ? maximos.id_estatus : 0;
+        console.log("estatus_ticket"+this.id_estatus_ticket);
         },
         (error)=>{
           console.log("Error al obtener el ticket", error);
@@ -48,11 +68,23 @@ export class EditarIncidenciaComponent implements OnInit {
       );
 
     })
+
+
+    this.incidenciaService.getStatus().subscribe(
+      (data: Estatus | Estatus[]) =>{
+        if (Array.isArray(data)) {
+          this.estatus = data;
+        } else {
+          this.estatus = [data];
+        }
+      },
+      (error)=>{
+        console.log("Error al obtener el ticket", error);
+      }
+        
+    )
   }
 
- /* ngAfterViewInit() {
-    this.mostrarModal();
-  }*/
 
   public mostrarModal(content: TemplateRef<any>)
   {

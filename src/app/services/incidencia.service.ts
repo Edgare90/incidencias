@@ -20,6 +20,11 @@ export class IncidenciaService {
     return this.http.get(url);
   }
 
+  getStatus():Observable<any>{
+    const url = `http://127.0.0.1:8000/api/obtiene-estatus`;
+    return this.http.get(url);
+  }
+
 
   getTicketsByUser(id_usuario: string):Observable<Ticket>{
     return this.http.get<Ticket>(`http://127.0.0.1:8000/api/obtiene-tickets-user/${id_usuario}`);
