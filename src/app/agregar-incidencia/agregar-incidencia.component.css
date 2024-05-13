@@ -1,7 +1,88 @@
-.error-message{
-    color: #000; 
-    background-color: #ff6961; 
-    padding: 8px;
-    border-radius: 4px;
-    margin-top: 5px;
+.error-message {
+    color: #fff; 
+    background-color: #ff6961; /* Fondo de color diferente */
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: bold; /* Estilo de fuente llamativo */
+    border: 2px solid #d32f2f; /* Bordes decorativos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex; /* Para alinear el icono y el texto */
+    align-items: center; /* Para alinear verticalmente */
 }
+
+.error-icon {
+    color: #ffeb3b; /* Amarillo */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+    font-size: 20px; /* Tamaño del icono */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos en la dirección transversal */
+    padding: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column; /* Elementos de formulario en forma vertical */
+    width: 100%; /* Ocupa todo el ancho disponible del contenedor */
+    max-width: 500px; /* Máximo ancho del formulario */
+    margin-bottom: 20px; /* Espacio entre grupos de formulario */
+  }
+  
+  .form-control {
+    transition: border-color 0.3s, box-shadow 0.3s;
+    padding: 10px;
+    margin-top: 8px; /* Espacio entre etiqueta y campo */
+    border: 1px solid #ccc; /* Borde sutil para los campos */
+    border-radius: 8px; /* Bordes redondeados para los campos */
+  }
+
+  .form-control:focus {
+    border-color: #0056b3; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 8px rgba(0,86,179,0.6); /* Añade un sombreado ligero alrededor del campo */
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s;
+  }
+  
+  
+  button:hover, button:focus {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón o enfocar */
+    background-color: #0056b3; /* Cambia el color al interactuar */
+  }
+  
+  label {
+    font-weight: bold; /* Hace las etiquetas en negrita para mejor legibilidad */
+  }
+  
+  select.form-control, input.form-control, textarea.form-control {
+    width: 100%; /* Asegura que los elementos de entrada usen todo el ancho disponible */
+  }
+
+  .input-container {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+
+.icono-comentarios{
+    height: 40px;
+    width: 40px;
+  }

@@ -12,29 +12,40 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router,private permisosService: PermisosService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.isLoggedIn()) {
-        const userData = this.authService.getUserData();
-
-        if (userData && userData.id_departamento) {
-            const idDepartamento = userData.id_departamento;
-            const rutasPermitidas = this.permisosService.obtenerRutasPermitidas(idDepartamento);
-            const rutaActual = state.url;
-
-            if (rutasPermitidas.includes(rutaActual)) {
-                return true;
-              } else {
-                this.router.navigate(['/unauthorized']);
-                return false;
-              }
-        }
-        else {
-          // Redirigir a la página de inicio de sesión si falta información del usuario
-          this.router.navigate(['/login']);
-          return false;
-        }
-    } else {
+   
+    const isLoggedIn = this.authService.isLoggedIn();
+    console.log('AuthGuard - isLoggedIn:', isLoggedIn);
+    if (!isLoggedIn) {
+      console.log('AuthGuard - Not logged in, redirecting to login...');
       this.router.navigate(['/login']);
       return false;
     }
+  
+    const userData = this.authService.getUserData();
+  
+    if (!userData || !userData.id_departamento) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  
+    const idDepartamento = userData.id_departamento;
+  
+    const rutasPermitidas = this.permisosService.obtenerRutasPermitidas(idDepartamento);
+  
+    const rutaActual = state.url;
+  
+    const rutaPermitida = rutasPermitidas.some(permittedRoute => {
+      const regex = new RegExp('^' + permittedRoute.replace(/:\w+/g, '([\\w-]+)') + '$');
+      return regex.test(rutaActual);
+    });
+  
+  
+    if (!rutaPermitida) {
+      this.router.navigate(['/unauthorized']);
+      return false;
+    }
+  
+    return true;
   }
+
 }

@@ -15,6 +15,11 @@ export class IncidenciaService {
     return this.http.post(url, ticketData);
   }
 
+  editarTicket(ticketData: any):Observable<any>{
+    const url = `http://127.0.0.1:8000/api/edita-ticket`;
+    return this.http.post(url, ticketData);
+  }
+
   getTickets():Observable<any>{
     const url = `http://127.0.0.1:8000/api/obtiene-tickets`;
     return this.http.get(url);
@@ -33,4 +38,11 @@ export class IncidenciaService {
   getTicketById(id_ticket: string):Observable<Ticket>{
     return this.http.get<Ticket>(`http://127.0.0.1:8000/api/obtiene-tickets-id/${id_ticket}`);
   }
+
+
+  getImageUrl(nombreArchivo: string): string {
+    return `http://127.0.0.1:8000/storage/archivos/${nombreArchivo}`;
+  }
+
+
 }

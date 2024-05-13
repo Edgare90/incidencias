@@ -1,108 +1,329 @@
-.timeline ul li {
-    list-style-type: none;
-    position: relative;
-    width: 6px;
-    margin: 0 auto;
-    padding-top: 50px;
-    background: #000000;
-  }
-  
-  .timeline ul li::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: inherit;
-  }
-  
-  .timeline ul li div {
-    position: relative;
-    bottom: 0;
-    width: 400px;
-    padding: 15px;
-    background: #F45B69;
-  }
-  
-  .timeline ul li div::before {
-    content: '';
-    position: absolute;
-    bottom: 7px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-  }
-  
-  .timeline ul li:nth-child(odd) div {
-    left: 45px;
-  }
-  
-  .timeline ul li:nth-child(odd) div::before {
-    left: -15px;
-    border-width: 8px 16px 8px 0;
-    border-color: transparent #F45B69 transparent transparent;
-  }
-  
-  .timeline ul li:nth-child(even) div {
-    left: -439px;
-  }
-  
-  .timeline ul li:nth-child(even) div::before {
-    right: -15px;
-    border-width: 8px 0 8px 16px;
-    border-color: transparent transparent transparent #F45B69;
-  }
-  
-  @media screen and (max-width: 900px) {
 
-    .timeline ul li div {
-      width: 250px;
-    }
-  
-    .timeline ul li:nth-child(even) div {
-      left: -289px; /*250+45-6*/
-    } 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.mosaico {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.imagen-contenedor {
+  flex: 0 0 calc(30.30% - 10px); /* Ajusta el tamaño de cada imagen en el mosaico */
+}
+
+.imagen {
+  width: 100%;
+  height: auto;
+  cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+}
+
+.ticket-container {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease-in-out; /* Animación de aparición */
+  max-width: 90%; /* Limita el ancho máximo del contenedor */
+  overflow-x: hidden; /* Oculta el desplazamiento horizontal */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 20px; /* Ajusta el padding del contenedor */
+}
+
+.ticket-container > * {
+  margin-bottom: 10px; /* Margen inferior entre elementos */
+  padding-left: 20px; /* Ajusta el padding izquierdo para todos los elementos */
+}
+
+/* Ajusta el ancho máximo de los contenedores internos según sea necesario */
+.ticket-info,
+.comentarios-container,
+.departamentos-container,
+.mosaico-container,
+.estatus-container,
+.otra-seccion-container {
+  max-width: 100%; /* Limita el ancho máximo de los contenedores internos */
+  margin-bottom: 30px;
+}
+
+.comentario, .departamento, .imagen-contenedor, .status-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 15px; /* Aumento de los márgenes entre los elementos */
+}
+
+.mosaico-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Aumento del espacio entre las imágenes */
+}
+
+.imagen-contenedor {
+  width: 150px;
+  height: 150px;
+  margin-right: 15px;
+}
+
+.imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
   }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
 
-  @media screen and (max-width: 600px) {
 
-    .timeline ul li {
-  
-      margin-left: 20px;
-  
-    }
-  
-    
-  
-    .timeline ul li div {
-  
-      width: calc(100vw - 91px);
-  
-    }
-  
-    
-  
-    .timeline ul li:nth-child(even) div {
-  
-      left: 45px;
-  
-    }
-  
-    
-  
-    .timeline ul li:nth-child(even) div::before {
-  
-      left: -15px;
-  
-      border-width: 8px 16px 8px 0;
-  
-      border-color: transparent #F45B69 transparent transparent;
-    }
-}  
-  
-  
-  
 
+.comentario,
+.departamento,
+.imagen-contenedor,
+.otra-seccion-container {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Ajusta la duración y la función de temporización aquí */
+}
+
+
+.comentario:hover,
+.departamento:hover,
+.imagen-contenedor:hover,
+.otra-seccion-container:hover {
+  transform: scale(1.05); /* Escala ligeramente el elemento al pasar el cursor sobre él */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave alrededor del elemento */
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+
+.timeline-line {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  height: 4px; /* Ajuste para mejor visualización */
+  background: linear-gradient(to right, var(--last-status-color, #ccc) 50%, transparent 50%);
+  background-size: 400% 100%;
+  animation: moveBackground 7s linear infinite;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes moveBackground {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+.timeline-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 10px;
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: transparent; 
+  border: 2px solid #007BFF;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  --piquito-color: #007BFF; 
+}
+
+.status-content:before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent var(--piquito-color) transparent;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 0;
+}
+
+.status-item::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -25px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.status-info {
+  display: flex;
+  flex-direction: column-reverse; /* Invierte el orden para que la fecha esté arriba */
+}
+
+.status-new:before {
+  border-color: transparent transparent #007BFF transparent;
+}
+
+.status-in-process:before {
+  border-color: transparent transparent #FFC107 transparent;
+}
+
+.status-finalized:before {
+  border-color: transparent transparent #28A745 transparent;
+}
+
+.status-default:before {
+  border-color: transparent transparent #6C757D transparent;
+}
+
+.status-new {
+  border-color: #007BFF;
+  --piquito-color: #007BFF;
+}
+
+.status-in-process {
+  border-color: #FFC107;
+  --piquito-color: #FFC107;
+}
+
+.status-finalized {
+  border-color: #28A745;
+  --piquito-color: #28A745;
+}
+
+.status-default {
+  border-color: #6C757D;
+  --piquito-color: #6C757D;
+}
+
+/* Estilo para el botón de cierre */
+.close {
+  position: absolute;
+  top: 10px; /* Ajustar la posición vertical */
+  right: 10px; /* Ajustar la posición horizontal */
+  width: 40px; /* Ancho del botón */
+  height: 40px; /* Alto del botón */
+  font-size: 30px; /* Tamaño del icono */
+  line-height: 40px; /* Alinear verticalmente el icono */
+  text-align: center; /* Alinear horizontalmente el icono */
+  color: #fff; /* Color del icono */
+  background-color: rgba(0, 0, 0, 0.5); /* Color de fondo del botón */
+  border-radius: 50%; /* Forma redondeada del botón */
+  cursor: pointer;
+  z-index: 1; /* Asegurar que el botón esté por encima del contenido */
+}
+
+.close:hover {
+  background-color: rgba(255, 255, 255, 0.5); /* Cambiar el color de fondo al pasar el ratón sobre el botón */
+  color: #000; /* Cambiar el color del icono al pasar el ratón sobre el botón */
+}
+
+/* Estilo para el contenido del botón de cierre */
+.close::before {
+  content: "×"; /* Contenido del botón (la "X") */
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  z-index: 1000; /* Asegúrate de que el modal esté por encima del resto del contenido */
+  display: none; /* Ocultar el modal por defecto */
+}
+
+.modal-contenido {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.img_icon {
+  width: 100px; /* Tamaño deseado del icono */
+  height: 100px; /* Tamaño deseado del icono */
+}
+
+div {
+  transition: opacity 0.3s ease-in-out; /* Transición de opacidad */
+}
+
+.error-message {
+  color: #fff; 
+  background-color: #ff6961; /* Fondo de color diferente */
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-weight: bold; /* Estilo de fuente llamativo */
+  border: 2px solid #d32f2f; /* Bordes decorativos */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex; /* Para alinear el icono y el texto */
+  align-items: center; /* Para alinear verticalmente */
+}
+
+.error-icon {
+  color: #ffeb3b; /* Amarillo */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  font-size: 20px; /* Tamaño del icono */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Agrega un margen inferior de 20px entre cada grupo de formulario */
+}
+
+.thin-blue-line {
+  border: none;
+  border-top: 10px solid rgb(19, 82, 94); /* Ajusta el color a tu preferencia */
+  margin-left: 20px;
+  padding-left: 10px;
+}
+
+/* Opcional: Animación */
+.thin-blue-line {
+  transition: border-width 5s ease; /* Ajusta la velocidad de la animación según tus necesidades */
+}
+
+
+.title {
+  color: blue; /* Color de los títulos */
+  font-weight: bold; /* Opcional: hacer los títulos en negrita */
+}
+
+.icono-comentarios{
+  height: 40px;
+  width: 40px;
+}

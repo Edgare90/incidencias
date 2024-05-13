@@ -11,7 +11,6 @@ export class PermisosService {
   };
 
   obtenerRutasPermitidas(idDepartamento: number): string[] {
-    console.log(this.rutasPorDepartamento[idDepartamento] || []);
     return this.rutasPorDepartamento[idDepartamento] || [];
   }
 

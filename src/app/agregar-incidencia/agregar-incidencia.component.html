@@ -1,43 +1,51 @@
-<div class="container">
 
+<div class="container">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="dirigidoA">Dirigido:</label>
+            <label for="dirigidoA"><img src="../../assets/icons/departamento.png" alt="Icono de comentarios" class="icono-comentarios">Dirigido:</label>
             <select class="form-control" id="dirigidoASelect" formControlName="dirigidoA" multiple>
                 <option value="" selected>Elegir</option>
-                <option *ngFor="let depto of datosDepartamentos" value="{{depto.id_departamento}}">{{ depto.departamento }}</option>
+                <option *ngFor="let depto of datosDepartamentos" [value]="depto.id_departamento">{{ depto.departamento }}</option>
               </select>
-              <div *ngIf="myForm.get('dirigidoA')?.hasError('required') && (myForm.get('dirigidoA')?.dirty || myForm.get('dirigidoA')?.touched)" class="error-message">
-                Selecciona a quien va dirigido el ticket.
+              <div *ngIf="myForm.get('dirigidoA')?.hasError('required') && (myForm.get('dirigidoA')?.dirty || myForm.get('dirigidoA')?.touched)" @fadeInOut class="error-message">
+                <span class="error-icon">!</span>
+                Selecciona a quien va dirigido el ticket, al menos un departamento.
               </div>
         </div>
         <div class="form-group">
-            <label for="comentario">Comentario</label>
+            <label for="comentario"><img src="../../assets/icons/comentario.png" alt="Icono de comentarios" class="icono-comentarios">Comentario</label>
             <textarea class="form-control" id="comentarioTxt" rows="3" formControlName="comentario" (input)="resetComentarioTouched()"></textarea>
-            <div *ngIf="myForm.get('comentario')?.hasError('required') && (myForm.get('comentario')?.dirty || myForm.get('comentario')?.touched)" class="error-message">
+            <div *ngIf="myForm.get('comentario')?.hasError('required') && (myForm.get('comentario')?.dirty || myForm.get('comentario')?.touched)" @fadeInOut class="error-message">
+                <span class="error-icon">!</span>
                 Un comentario es requerido.
             </div>
         </div>
 
         <div class="form-group">
-            <label for="files" class="form-label">Seleccione uno o mas archivos</label>
-            <input class="form-control" type="file" id="files" multiple (change)="onFileSelected($event)" formControlName="files">
-
-            <div *ngIf="myForm.get('files')?.hasError('invalidExtension') && (myForm.get('files')?.dirty || myForm.get('files')?.touched)">
-                Solo se permiten archivos con extensiones .jpg, .png, .xls o .doc.
+            <label for="files" class="form-label"><img src="../../assets/icons/archivo-adjunto.png" alt="Icono de comentarios" class="icono-comentarios">Seleccione uno o mas archivos</label>
+            <div class="input-container">
+               <input class="form-control" type="file" id="files" multiple (change)="onFileSelected($event)" formControlName="files">
+               <span class="icon" (mouseenter)="showErrorMessage = true" (mouseleave)="showErrorMessage = false">ⓘ</span>
+            </div>
+            <div class="error-message" *ngIf="showErrorMessage" @fadeInOut>
+                <span class="error-icon">!</span>
+                Solo se permiten archivos con extensiones .jpg, .png, .xls, .doc o .pdf.
+            </div>
+            <div *ngIf="myForm.get('files')?.hasError('invalidExtension') && (myForm.get('files')?.dirty || myForm.get('files')?.touched)" @fadeInOut>
+                <span class="error-icon">!</span>
+                Solo se permiten archivos con extensiones .jpg, .png, .xls, .doc o .pdf
             </div>
         </div>
 
         <div class="form-group">
-            <label for="derivado"> Es este ticket derivado de otro ticket?</label>
+            <label for="derivado"><img src="../../assets/icons/investigacion.png" alt="Icono de comentarios" class="icono-comentarios"> Es este ticket derivado de otro ticket?</label>
             <select id="derivado" (change)="onDerivadoChange()" formControlName="derivado">
-                <option value="" selected>Elegir</option>
                 <option value="si">Si</option>
-                <option value="no">No</option>
+                <option value="no" selected>No</option>
             </select>
         </div>
 
-        <div class="form-group" *ngIf="isDerivado">
+        <div class="form-group" *ngIf="isDerivado" @fieldAnimation>
             <label for="ticket_anterior">Número de ticket anterior:</label>
             <input type="text" id="ticket_anterior" formControlName="ticketAnterior">
         </div>

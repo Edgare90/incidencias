@@ -1,6 +1,7 @@
 <input type="button" value="Exportar PDF" (click)="exportPDF()">
 
-<table class="table table-striped">
+<div class="table-container">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Fecha</th>
@@ -10,11 +11,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tickets of mis_tickets">
-        <th scope="row">{{ tickets.fecha_alta}}</th>
-        <td>{{ tickets.id_ticket}}</td>
-        <td>{{ tickets.usuario?.usuario}}</td>
-        <td><button (click)="editarTicket(tickets.id_ticket)">Editar</button></td>
+      <tr *ngFor="let ticket of paginatedTickets">
+        <td>{{ ticket.fecha_alta}}</td>
+        <td>{{ ticket.id_ticket}}</td>
+        <td>{{ ticket.usuario?.usuario}}</td>
+        <td><button (click)="editarTicket(ticket.id_ticket)" class="edit-button">Editar</button></td>
       </tr>
     </tbody>
   </table>
+</div>
+<nav>
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="onPrev($event)">Anterior</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages || totalPages === undefined">
+      <a class="page-link" (click)="onNext($event)">Siguiente</a>
+    </li>    
+  </ul>
+</nav>

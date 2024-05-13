@@ -14,6 +14,11 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 })
 export class MisTicketsComponent implements OnInit {
   mis_tickets: Ticket[] = [];
+  paginatedTickets: Ticket[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 0;
+
   constructor(private authService: AuthService, private incidenciaService:IncidenciaService, private router: Router){}
   ngOnInit(){
     const userData = this.authService.getUserData();
@@ -23,6 +28,8 @@ export class MisTicketsComponent implements OnInit {
       (data: Ticket | Ticket[]) =>{
         if (Array.isArray(data) && data.length > 0) {
           this.mis_tickets = data;
+          this.totalPages = Math.ceil(this.mis_tickets.length / this.itemsPerPage);
+          this.updatePage(1);
         }else if (!Array.isArray(data)) {
           this.mis_tickets = [data];
         }else {
@@ -34,6 +41,30 @@ export class MisTicketsComponent implements OnInit {
         console.log("Error al obtener los tickets", error);
       }
     );
+  }
+
+  
+  updatePage(pageNumber: number) {
+    this.currentPage = pageNumber;
+    const startIndex = (pageNumber - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedTickets = this.mis_tickets.slice(startIndex, endIndex);
+  }
+
+  onPrev(event: MouseEvent): void {
+    event.preventDefault();
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePage(this.currentPage);
+    }
+  }
+  
+  onNext(event: MouseEvent): void {
+    event.preventDefault();
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePage(this.currentPage);
+    }
   }
 
 

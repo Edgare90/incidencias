@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegistroComponent } from './registro/registro.component';
 import { MatSelectModule } from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,8 +30,11 @@ import { AgregarIncidenciaComponent } from './agregar-incidencia/agregar-inciden
 import { EditarIncidenciaComponent } from './editar-incidencia/editar-incidencia.component';
 import { MisTicketsComponent } from './mis-tickets/mis-tickets.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { LightboxComponent } from './lightbox/lightbox.component';
+import { MenuComponent } from './menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AgregarIncidenciaComponent,
     EditarIncidenciaComponent,
     MisTicketsComponent,
-    
+    LightboxComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,8 +72,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     MatPaginatorModule,
     NgbModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
-  providers: [RecargaPerfilesService],
+  exports: [
+    LightboxComponent 
+  ],
+  providers: [
+    RecargaPerfilesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

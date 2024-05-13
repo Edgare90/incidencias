@@ -1,26 +1,31 @@
-<mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <p>
-        <mat-form-field>
-          <input matInput placeholder="Email" formControlName="email">
-          <mat-error *ngIf="form.get('email')?.hasError('required')">Email requerido.</mat-error>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" formControlName="password">
-          <mat-error *ngIf="form.get('password')?.hasError('required')">Password requerido.</mat-error>
-        </mat-form-field>
-    </p>
-        <div class="button">
-          <button type="submit" mat-button>Ingresar</button>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="card">
+  <div class="card-title">Login</div>
+  <div class="card-content">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="input-field">
+        <i *ngIf="!form.get('email')?.touched || !form.get('email')?.hasError('required')" class="fa fa-envelope icon"></i>
+        <input type="email" placeholder="Email" formControlName="email" (blur)="checkEmailError()">
+        <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')" class="error-message">
+          <span *ngIf="showEmailErrorIcon" class="fa fa-envelope icon"></span>
+          Email requerido.
         </div>
-  
-      </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+      <div class="input-field">
+        <i *ngIf="!form.get('password')?.touched || !form.get('password')?.hasError('required')" class="fa fa-lock icon"></i>
+        <input type="password" placeholder="Password" formControlName="password" (blur)="checkPassError()">
+        <div *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')" class="error-message">
+          <span *ngIf="showPassErrorIcon" class="fa fa-lock icon"></span>
+          Password requerido
+        </div>
+      </div>
+      <div class="button-container">
+        <button type="submit">Ingresar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
   <router-outlet></router-outlet>
   

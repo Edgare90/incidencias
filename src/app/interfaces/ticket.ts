@@ -2,6 +2,7 @@ import { TicketArchivo } from "./ticket-archivo";
 import { TicketComentario } from "./ticket-comentario";
 import { TicketEstatus } from "./ticket-estatus";
 import { Usuario } from "./usuario";
+import { Departamentos } from "./departamentos";
 
 export interface Ticket {
     id_ticket: number;
@@ -12,4 +13,5 @@ export interface Ticket {
     archivos?: TicketArchivo[];
     comentarios?: TicketComentario[];
     estatus?: TicketEstatus[];
+    departamentos?: Departamentos[];
 }

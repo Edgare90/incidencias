@@ -17,6 +17,7 @@ export class AuthService {
     return this.http.post(url, formData).pipe(
       tap((response:any) =>{
         if (response && response.data && response.data.token) {
+          localStorage.setItem('token', response.data.token);
           this.setToken(response.data.token);
           this.setUserData(response.data);
         }
@@ -35,11 +36,13 @@ export class AuthService {
   }
 
   getToken(): string | null {
+   // console.log("auth_token"+localStorage.getItem(this.authTokenKey));
     return localStorage.getItem(this.authTokenKey);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    return !!token;
   }
 
   getUserData(): any | null {
@@ -50,5 +53,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.authTokenKey);
     localStorage.removeItem(this.userDataKey);
+    localStorage.removeItem('token');
   }
 }

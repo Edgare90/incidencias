@@ -1,17 +1,124 @@
-.mat-form-field {
-    .mat-input-element {
-        color: slategray;
-    }
-    .mat-form-field-label {
-        color: slategray;
-    }
-    .mat-form-field-underline {
-        background-color: slategray;
-    }
-    .mat-form-field-ripple {
-        background-color: slategray;
-    }
-    .mat-form-field-required-marker {
-        color: slategray;
-    }
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - (100vh - 100%)); /* Esto intenta ajustar cualquier discrepancia en el cálculo de la altura */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Asegura que no haya desbordamiento */
+  box-sizing: border-box; /* Asegura que padding y border no afecten las dimensiones calculadas */
+}
+
+.card {
+  width: 320px; /* Tamaño ajustado para mejor apariencia */
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+  border-radius: 8px; /* Bordes redondeados */
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-size: 24px; /* Tamaño de fuente ajustado */
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 0; /* Inicia invisible */
+  animation: fadeInUp 0.8s ease-out forwards; /* Aplica la misma animación a toda la estructura del campo */
+}
+
+.input-field i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+  font-size: 20px;
+  z-index: 1; /* Asegura que el icono esté visible sobre el input */
+}
+
+.input-field input {
+  width: 100%;
+  padding: 10px 10px 10px 40px; /* Añade espacio a la izquierda para el icono */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input-field input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.button-container {
+  width: 100%;
+}
+
+.button-container button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Animación de entrada suavizada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-field input, .button-container button {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.error-message {
+  color: #fff; 
+  background-color: #ff6961; /* Fondo de color diferente */
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-weight: bold; /* Estilo de fuente llamativo */
+  border: 2px solid #d32f2f; /* Bordes decorativos */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex; /* Para alinear el icono y el texto */
+  align-items: center; /* Para alinear verticalmente */
+}
+
+.error-icon {
+  color: #ffeb3b; /* Amarillo */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  font-size: 20px; /* Tamaño del icono */
+}
+
+
+.error-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.show-icon .error-icon {
+  opacity: 1;
 }

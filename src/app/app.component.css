@@ -1,0 +1,38 @@
+.menu {
+    display: flex;
+    justify-content: center;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+  }
+  
+  .menu-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu-item {
+    position: relative;
+  }
+
+  html, body {
+    height: 100%; /* Asegura que el elemento raíz tenga la altura completa de la ventana del navegador */
+    margin: 0; /* Elimina los márgenes predeterminados */
+    padding: 0; /* Elimina el padding predeterminado */
+  }
+  
+  .site-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Altura mínima del contenedor es toda la altura de la ventana */
+  }
+  
+  main {
+    flex: 1; /* El contenido principal ocupa todo el espacio disponible, empujando el footer hacia abajo */
+  }
+  
+  footer {
+    background-color: #f8f9fa; /* Fondo claro para el footer, cambia según tu diseño */
+    padding: 20px 0; /* Padding para el footer */
+    text-align: center; /* Centra el texto dentro del footer */
+  }

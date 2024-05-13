@@ -34,7 +34,8 @@ const routes: Routes = [
       {path:'agrega-ticket', component:AgregarIncidenciaComponent},
       {path:'mis-tickets', component:MisTicketsComponent},
       {path:'editar-incidencia/:id', component:EditarIncidenciaComponent},
-      { path: '**', redirectTo: '/login' }
+      { path: '**', redirectTo: '/login' },
+      { path: 'mis-tickets/:page',component: MisTicketsComponent}
     ]
   },
 ];
