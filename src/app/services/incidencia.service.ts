@@ -35,6 +35,10 @@ export class IncidenciaService {
     return this.http.get<Ticket>(`http://127.0.0.1:8000/api/obtiene-tickets-user/${id_usuario}`);
   }
 
+  getTicketsByDepto(id_depto: string):Observable<Ticket>{
+    return this.http.get<Ticket>(`http://127.0.0.1:8000/api/obtiene-tickets-depto/${id_depto}`);
+  }
+
   getTicketById(id_ticket: string):Observable<Ticket>{
     return this.http.get<Ticket>(`http://127.0.0.1:8000/api/obtiene-tickets-id/${id_ticket}`);
   }

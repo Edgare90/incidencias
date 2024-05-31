@@ -1,76 +1,58 @@
+/* Animaciones de las filas */
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+tr {
+  animation: fadeInRow 1s; /* Aumenta la duración de la animación */
+}
+
+.edit-button {
+  transition: background-color 0.5s, transform 0.5s; /* Aumenta la duración de las transiciones */
+}
+
+.edit-button {
+  background-color: #007bff; /* Color de fondo normal */
+  color: #fff; /* Color de texto normal */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para el color de fondo y transformación */
+}
+
+.edit-button:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar el cursor */
+  transform: translateY(-3px); /* Efecto de salto */
+}
+
+
+.table-header {
+  background-color: #007bff; /* Color de fondo del encabezado */
+  color: #fff; /* Color del texto en el encabezado */
+}
+
 .table-container {
-    animation: fadeInAnimation 1s ease;
-  }
-  
-  @keyframes fadeInAnimation {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: #ddd;
-  }
-  
-  button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  /* Animaciones de las filas */
-  @keyframes fadeInRow {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  width: 80%; /* Ajusta este valor al ancho deseado */
+  margin: auto; /* Centra la tabla horizontalmente */
+}
 
-  .edit-button {
-    background-color: #007bff; /* Color de fondo normal */
-    color: #fff; /* Color de texto normal */
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para el color de fondo y transformación */
-  }
-  
-  .edit-button:hover {
-    background-color: #0056b3; /* Cambia el color de fondo al pasar el cursor */
-    transform: translateY(-3px); /* Efecto de salto */
-  }
+nav {
+  width: 80%; /* Asegúrate de que coincida con el ancho del .table-container */
+  margin: auto; /* Centra la paginación horizontalmente */
+}
 
+.table-striped tbody tr:hover {
+  background-color: #f8f9fa; /* Cambia esto al color de fondo que prefieras para el hover */
+  transform: scale(1.02); /* Efecto de escalado para hacer la fila ligeramente más grande */
+  transition: background-color 0.5s ease, transform 0.5s ease; /* Suaviza la transición de los cambios */
+}
 
-  .table-header {
-    background-color: #007bff; /* Color de fondo del encabezado */
-    color: #fff; /* Color del texto en el encabezado */
-  }
   

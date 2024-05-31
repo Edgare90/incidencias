@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { EditarUsuariosComponent } from './editar-usuarios/editar-usuarios.component';
 import { MatSnackBarModule  } from '@angular/material/snack-bar';
 import { ListarPefilesComponent } from './listar-pefiles/listar-pefiles.component';
+import { ListarIncidenciaComponent } from './listar-incidencia/listar-incidencia.component';
 import { RecargaPerfilesService } from './services/recarga-perfiles.service';
 import { ListarDepartamentosComponent } from './listar-departamentos/listar-departamentos.component';
 import { AgregarDepartamentosComponent } from './agregar-departamentos/agregar-departamentos.component';
@@ -51,6 +52,7 @@ import { AuthService } from './auth.service';
     MisTicketsComponent,
     LightboxComponent,
     MenuComponent,
+    ListarIncidenciaComponent,
   ],
   imports: [
     BrowserModule,

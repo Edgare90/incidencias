@@ -11,6 +11,7 @@ import { AgregarIncidenciaComponent } from './agregar-incidencia/agregar-inciden
 import { AuthGuard } from './services/auth.guard';
 import { MisTicketsComponent } from './mis-tickets/mis-tickets.component';
 import { EditarIncidenciaComponent } from './editar-incidencia/editar-incidencia.component';
+import { ListarIncidenciaComponent } from './listar-incidencia/listar-incidencia.component';
 
 
 
@@ -34,8 +35,10 @@ const routes: Routes = [
       {path:'agrega-ticket', component:AgregarIncidenciaComponent},
       {path:'mis-tickets', component:MisTicketsComponent},
       {path:'editar-incidencia/:id', component:EditarIncidenciaComponent},
-      { path: '**', redirectTo: '/login' },
-      { path: 'mis-tickets/:page',component: MisTicketsComponent}
+      { path: 'mis-tickets/:page',component: MisTicketsComponent},
+      { path:'tickets-depto', component:ListarIncidenciaComponent},
+      { path: '**', redirectTo: '/login' }
+      
     ]
   },
 ];

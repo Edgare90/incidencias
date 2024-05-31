@@ -5,31 +5,30 @@
   <button class="menu-toggle" aria-label="Abrir menú" (click)="toggleMenu()" [class.active]="isMenuOpen">☰</button>
     <ul class="menu-list" [class.open]="isMenuOpen">
       <li class="menu-item">
-        <a href="#" class="menu-link">Inicio</a>
+        <a routerLink="/" class="menu-link">Inicio</a>
       </li>
       <li class="menu-item has-submenu">
         <a href="#" class="menu-link">Usuarios</a>
         <ul class="submenu">
-          <li class="submenu-item"><a href="#">Registra Usuario</a></li>
-          <li class="submenu-item"><a href="#">Editar Usuario</a></li>
-          <li class="submenu-item"><a href="#">Lista de Usuarios</a></li>
+          <li class="submenu-item"><a routerLink="/registro">Registra Usuario</a></li>
+          <li class="submenu-item"><a routerLink="/listar-usuarios">Lista de Usuarios</a></li>
         </ul>
       </li>
       <li class="menu-item has-submenu">
         <a href="#" class="menu-link">Departamentos</a>
         <ul class="submenu">
-            <li class="submenu-item"><a href="#">Agregar Departamentos</a></li>
-            <li class="submenu-item"><a href="#">Lista de Departamentos</a></li>
+            <li class="submenu-item"><a routerLink="/agregar-departamentos">Agregar Departamentos</a></li>
+            <li class="submenu-item"><a routerLink="/lista-departamentos">Lista de Departamentos</a></li>
           </ul>
       </li>
       <li class="menu-item">
-        <a href="#" class="menu-link">Agregar Ticket</a>
+        <a routerLink="/agrega-ticket" class="menu-link">Agregar Ticket</a>
       </li>
       <li class="menu-item">
-        <a href="#" class="menu-link">Mis Tickets</a>
+        <a routerLink="/mis-tickets" class="menu-link">Mis Tickets</a>
       </li>
       <li class="menu-item">
-        <a href="#" class="menu-link">Tickets de mi Departamento</a>
+        <a routerLink="/tickets-depto" class="menu-link">Tickets de mi Departamento</a>
       </li>
     </ul>
   </nav>
