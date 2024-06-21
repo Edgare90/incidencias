@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-    constructor(private formulario: FormBuilder,private authService: AuthService, private router:Router){}
+    constructor(private formulario: FormBuilder,private authService: AuthService, private router:Router,private snackBar: MatSnackBar){}
     showEmailErrorIcon = false;
     showPassErrorIcon = false;
     form: FormGroup = this.formulario.group({
@@ -49,6 +50,9 @@ export class LoginComponent {
         this.authService.login(email, password).subscribe(
           (response) => {
             console.log('Login successful', response);
+            this.snackBar.open(response.message, 'Cerrar',{
+              duration: 3000,
+            });
             this.router.navigate(['/agrega-ticket']); 
           },
           (error) => {

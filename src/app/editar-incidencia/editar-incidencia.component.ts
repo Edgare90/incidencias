@@ -106,108 +106,142 @@ export class EditarIncidenciaComponent implements OnInit {
 
   ngOnInit(){
 
-    this.deptoService.getDepartamentos().subscribe(
-      (data) =>{
-        this.datosDepartamentos = data;
-      },
-      (error) =>{
-        console.log('Error al cargar departamentos',error);
-      }
-    )
+    this.loadData();
 
-    this.incidenciaSerive.getStatus().subscribe(
-      (data) =>{
-        this.posiblesEstatus = data;
-      },
-      (error)=>{
-        console.log('Error al cargar departamentos',error);
-      }
-    )
+
     
     this.route.params.subscribe(params => {
       this.ticketId = params['id'];
       
-      this.incidenciaService.getTicketById(this.ticketId).subscribe(
-        (data: Ticket | Ticket[]) =>{
-          if (Array.isArray(data) && data.length > 0) {
-            this.mis_tickets = data;
-          }else if (!Array.isArray(data)) {
-            this.mis_tickets = [data];
-          }else {
-            console.log('No se encontraron tickets para el id');
-          }
-          console.log(this.mis_tickets);
-          
-          this.mis_tickets.forEach(ticket => {
-            if (ticket.archivos) {
-              ticket.archivos.forEach(archivo => {
-                this.imagenes.push(this.incidenciaService.getImageUrl(archivo.archivo));
-              });
-            }
-          });
 
-           // Obtener el id_ticket_estatus más alto y su correspondiente id_estatus
-           const maximos = this.mis_tickets.reduce((maximos, ticket) => {
-            if (ticket.estatus) {
-                ticket.estatus.forEach(est => {
-                    if (est.id_ticket_estatus > maximos.id_ticket_estatus) {
-                        maximos.id_ticket_estatus = est.id_ticket_estatus;
-                        maximos.id_estatus = est.estatus_info.id_estatus;
-                    }
-                });
-            }
-            return maximos;
-        }, { id_ticket_estatus: -Infinity, id_estatus: undefined as number | undefined });
-        this.id_ticket_estatus = maximos.id_ticket_estatus;
-        this.id_estatus_ticket = maximos.id_estatus !== undefined ? maximos.id_estatus : 0;
-        console.log("estatus_ticket"+this.id_estatus_ticket);
-
-        //obtener los deptos ya involucrados para no permitir volverlos a seleccionar
-        if (Array.isArray(data)) {
-          data.forEach(ticket => {
-            if (ticket.departamentos) {
-              ticket.departamentos.forEach(depto => {
-                const idDepartamento = parseInt(depto.id_departamento, 10);
-                if (!isNaN(idDepartamento)) {
-                  this.departamentosIncluidos.push(idDepartamento);
-                }
-              });
-            }
-          });
-        } else {
-          if (data.departamentos) {
-            data.departamentos.forEach(depto => {
-              const idDepartamento = parseInt(depto.id_departamento, 10);
-              if (!isNaN(idDepartamento)) {
-                this.departamentosIncluidos.push(idDepartamento);
-              }
-            });
-          }
-        }
-        
-
-        this.handleTicketData(data);
-        },
-        (error)=>{
-          console.log("Error al obtener el ticket", error);
-        }
-      );
     })
 
-    this.incidenciaService.getStatus().subscribe(
-      (data: Estatus | Estatus[]) =>{
-        if (Array.isArray(data)) {
-          this.estatus = data;
-        } else {
-          this.estatus = [data];
-        }
-      },
-      (error)=>{
-        console.log("Error al obtener el ticket", error);
-      }
-        
-    )
+
   }
+
+  loadData() {
+    this.loadDepartamentos();
+    this.loadStatus();
+    this.loadTicketDetails();
+    this.getIncidencia();
+  }
+
+
+  loadDepartamentos() { 
+    this.deptoService.getDepartamentos().subscribe(
+          (data) =>{
+            this.datosDepartamentos = data;
+          },
+          (error) =>{
+            console.log('Error al cargar departamentos',error);
+          }
+        );
+    }
+    
+    
+    loadStatus() {
+      this.incidenciaSerive.getStatus().subscribe(
+          (data) =>{
+            this.posiblesEstatus = data;
+          },
+          (error)=>{
+            console.log('Error al cargar departamentos',error);
+          }
+        );
+    }
+    
+    
+    loadTicketDetails() {
+      this.route.params.subscribe(params => {
+        this.ticketId = params['id'];
+        this.fetchTicketData(this.ticketId);
+      });
+    }
+    
+    fetchTicketData(ticketId: string) {
+            this.incidenciaService.getTicketById(this.ticketId).subscribe(
+            (data: Ticket | Ticket[]) =>{
+              if (Array.isArray(data) && data.length > 0) {
+                this.mis_tickets = data;
+              }else if (!Array.isArray(data)) {
+                this.mis_tickets = [data];
+              }else {
+                console.log('No se encontraron tickets para el id');
+              }
+              console.log(this.mis_tickets);
+              
+              this.mis_tickets.forEach(ticket => {
+                if (ticket.archivos) {
+                  ticket.archivos.forEach(archivo => {
+                    this.imagenes.push(this.incidenciaService.getImageUrl(archivo.archivo));
+                  });
+                }
+              });
+    
+               // Obtener el id_ticket_estatus más alto y su correspondiente id_estatus
+               const maximos = this.mis_tickets.reduce((maximos, ticket) => {
+                if (ticket.estatus) {
+                    ticket.estatus.forEach(est => {
+                        if (est.id_ticket_estatus > maximos.id_ticket_estatus) {
+                            maximos.id_ticket_estatus = est.id_ticket_estatus;
+                            maximos.id_estatus = est.estatus_info.id_estatus;
+                        }
+                    });
+                }
+                return maximos;
+            }, { id_ticket_estatus: -Infinity, id_estatus: undefined as number | undefined });
+            this.id_ticket_estatus = maximos.id_ticket_estatus;
+            this.id_estatus_ticket = maximos.id_estatus !== undefined ? maximos.id_estatus : 0;
+            console.log("estatus_ticket"+this.id_estatus_ticket);
+    
+            //obtener los deptos ya involucrados para no permitir volverlos a seleccionar
+            if (Array.isArray(data)) {
+              data.forEach(ticket => {
+                if (ticket.departamentos) {
+                  ticket.departamentos.forEach(depto => {
+                    const idDepartamento = parseInt(depto.id_departamento, 10);
+                    if (!isNaN(idDepartamento)) {
+                      this.departamentosIncluidos.push(idDepartamento);
+                    }
+                  });
+                }
+              });
+            } else {
+              if (data.departamentos) {
+                data.departamentos.forEach(depto => {
+                  const idDepartamento = parseInt(depto.id_departamento, 10);
+                  if (!isNaN(idDepartamento)) {
+                    this.departamentosIncluidos.push(idDepartamento);
+                  }
+                });
+              }
+            }
+            
+    
+            this.handleTicketData(data);
+            },
+            (error)=>{
+              console.log("Error al obtener el ticket", error);
+            }
+          );
+    }
+    
+    getIncidencia()
+    {
+        this.incidenciaService.getStatus().subscribe(
+          (data: Estatus | Estatus[]) =>{
+            if (Array.isArray(data)) {
+              this.estatus = data;
+            } else {
+              this.estatus = [data];
+            }
+          },
+          (error)=>{
+            console.log("Error al obtener el ticket", error);
+          }
+            
+        )
+    }
 
   getStatusColor(id_estatus: number): string {
     switch(id_estatus) {
@@ -395,6 +429,7 @@ fileExtensionValidator(allowedExtensions: string[]) {
 
 onSubmit()
 {
+  console.log("estoy en el submit de la edicio");
   const dirigidoA = this.myForm.get('dirigidoA')?.value;
   Object.keys(this.myForm.controls).forEach(controlName => {
     this.myForm.get(controlName)?.markAsTouched();
@@ -432,11 +467,15 @@ onSubmit()
           duration: 3000,
         });
         this.myForm.reset();
+        this.loadData();
       },
       (error) => {
         console.error(error);
       }
     )
+  }else
+  {
+    console.log("no pasa la validacion");
   }
 }
 

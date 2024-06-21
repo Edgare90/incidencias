@@ -4,4 +4,9 @@ export interface TicketComentario {
     usr: string;
     fecha_comentario: Date;
     comentario: string;
+    usuario?: { 
+        id_usuario: number;
+        usuario: string;
+        email:string;
+    };
 }

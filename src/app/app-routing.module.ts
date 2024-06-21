@@ -19,7 +19,7 @@ import { ListarIncidenciaComponent } from './listar-incidencia/listar-incidencia
 const routes: Routes = [
 
 
-  { path: 'login', component: LoginComponent }, // Permitir acceso a la página de inicio de sesión sin autenticación
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     canActivate:[AuthGuard],

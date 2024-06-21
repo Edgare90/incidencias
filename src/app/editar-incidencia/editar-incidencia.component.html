@@ -1,5 +1,5 @@
 
-<button (click)="mostrarModal(content)">Imprimir Ticket</button>
+<!-- <button (click)="mostrarModal(content)">Imprimir Ticket</button> -->
 
 <div *ngFor="let ticket of mis_tickets" class="ticket-container">
   <h1>
@@ -24,8 +24,10 @@
       <div *ngFor="let comentario of ticket.comentarios" class="comentario">
         <p>
           <span class="title">Fecha Comentario:</span> {{ comentario.fecha_comentario }}<br>
-          <span class="title">Usuario Comentario:</span> {{ comentario.usr }}<br>
+          <span class="title">Usuario Comentario:</span>{{ comentario.usuario?.usuario }}<br>
+          <span class="title">Email:</span> {{ comentario.usuario?.email }}<br>
           <span class="title">Comentario:</span> {{ comentario.comentario }}
+          
         </p>
       </div>
   </div>
