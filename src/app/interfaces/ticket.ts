@@ -8,7 +8,7 @@ export interface Ticket {
     id_ticket: number;
     usr_alta: string;
     fecha_alta: Date;
-    dirigido_a: string;
+    ticket_anterior: number;
     usuario?: Usuario;
     archivos?: TicketArchivo[];
     comentarios?: TicketComentario[];

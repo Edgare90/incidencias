@@ -72,6 +72,35 @@
     </div>
   </div>
 
+  <div *ngIf="previousTicketDetails.length > 0">
+    <h1>
+      <img src="../../assets/icons/volver-al-pasado.png" alt="Icono de comentarios" class="icono-comentarios">
+      Detalles de Tickets Anteriores
+    </h1>
+    <hr class="thin-blue-line">
+    <div *ngFor="let ticket of previousTicketDetails">
+      <section class="timeline">
+      <h3>Ticket ID: {{ ticket.ticketId }}</h3>
+      
+      <ul>
+        <li *ngFor="let comentario of ticket.comentarios">
+          <p>
+            <span class="title">Fecha Comentario:</span> {{ comentario.fecha_comentario }}<br>
+            <span class="title">Usuario Comentario:</span>{{ comentario.usuario?.usuario }}<br>
+            <span class="title">Comentario:</span> {{ comentario.comentario }}
+          </p>
+        </li>
+      </ul>
+  
+      <div class="archivos-container">
+        <div *ngFor="let archivo of ticket.archivos" class="archivo">
+          <a [href]="archivo.url" target="_blank">{{ archivo.nombre }}</a>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+
   <h1>
     <img src="../../assets/icons/tiempo.png" alt="Icono de comentarios" class="icono-comentarios">
      Línea de Tiempo
@@ -93,7 +122,11 @@
     </section>
   </div>
 
+
+
 </div>
+
+
 
 
 <div [@scrollAnimation]="scrollState" class="ticket-container" *ngIf="showForm && this.id_estatus_ticket != 3">

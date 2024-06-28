@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild,TemplateRef ,inject, ElementRef, Af
 import { ActivatedRoute  } from '@angular/router';
 import { IncidenciaService } from '../services/incidencia.service';
 import { Ticket } from '../interfaces/ticket';
+import {TicketArchivo} from '../interfaces/ticket-archivo'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Estatus } from '../interfaces/estatus';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { DepartamentoService } from '../services/departamento.service';
 import { Departamentos } from '../interfaces/departamentos';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, state, style, animate, transition } from '@angular/animations'
+import { TicketComentario } from '../interfaces/ticket-comentario';
 
 @Component({
   selector: 'app-editar-incidencia',
@@ -70,6 +72,7 @@ export class EditarIncidenciaComponent implements OnInit {
   scrollState = 'hide'; 
   showForm: boolean = false;
   departamentosIncluidos: number[] = [];
+  previousTicketDetails: any[] = [];
 
  
 
@@ -107,16 +110,9 @@ export class EditarIncidenciaComponent implements OnInit {
   ngOnInit(){
 
     this.loadData();
-
-
-    
     this.route.params.subscribe(params => {
       this.ticketId = params['id'];
-      
-
     })
-
-
   }
 
   loadData() {
@@ -219,11 +215,69 @@ export class EditarIncidenciaComponent implements OnInit {
             
     
             this.handleTicketData(data);
+
+            console.log("hay ticket anterior"+this.mis_tickets[0].ticket_anterior)
+
+            if (this.mis_tickets[0] && this.mis_tickets[0].ticket_anterior) {
+              let ticketAnteriorString = this.mis_tickets[0].ticket_anterior.toString();
+              this.fetchPreviousTicketsData(ticketAnteriorString);
+            }
+
             },
             (error)=>{
               console.log("Error al obtener el ticket", error);
             }
           );
+    }
+
+
+    fetchPreviousTicketsData(ticketId: string) {
+      this.incidenciaService.getTicketById(ticketId).subscribe(
+        (responseData: any) => {
+          if (!Array.isArray(responseData) || responseData.length === 0) {
+            console.error('No se encontraron datos para el ticket anterior:', ticketId);
+            return;
+          }
+    
+          const previousData = responseData[0];
+          console.log("Datos del ticket anterior:", previousData);
+    
+          // Procesar y mapear imágenes
+          const archivosUrls = previousData.archivos ? previousData.archivos.map((archivo: TicketArchivo) => {
+            return {
+              url: this.incidenciaService.getImageUrl(archivo.archivo),
+              nombre: archivo.archivo  // Suponiendo que 'archivo' tiene una propiedad 'archivo' que es el nombre del archivo
+            };
+          }) : [];
+    
+          // Procesar comentarios
+          const comentarios = previousData.comentarios ? previousData.comentarios.map( (comentario: TicketComentario) => {
+            return {
+              comentario: comentario.comentario,
+              fecha_comentario: comentario.fecha_comentario,
+              usuario: comentario.usuario ? comentario.usuario.usuario : "Anónimo"
+            };
+          }) : [];
+    
+          console.log("Comentarios procesados:", comentarios);
+          console.log("URLs de archivos:", archivosUrls);
+    
+          const extractedData = {
+            ticketId: previousData.id_ticket,
+            comentarios: comentarios,
+            archivos: archivosUrls
+          };
+    
+          console.log("Extracted Data:", extractedData);
+          this.previousTicketDetails.push(extractedData);
+    
+          // Si hay un ticket anterior, seguir buscando
+          if (previousData.ticket_anterior && previousData.ticket_anterior > 0) {
+            this.fetchPreviousTicketsData(previousData.ticket_anterior.toString());
+          }
+        },
+        error => console.error("Error al obtener el ticket anterior", error)
+      );
     }
     
     getIncidencia()

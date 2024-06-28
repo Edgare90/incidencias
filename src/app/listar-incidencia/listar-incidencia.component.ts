@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IncidenciaService } from '../services/incidencia.service';
 import { Ticket } from '../interfaces/ticket';
+import {TicketEstatus} from '../interfaces/ticket-estatus'
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +14,7 @@ export class ListarIncidenciaComponent implements OnInit {
   paginatedTickets: Ticket[] = [];
   mis_tickets: Ticket[] = []; 
    currentPage: number = 1;
-   itemsPerPage: number = 5;
+   itemsPerPage: number = 10;
    totalPages: number = 0;
   constructor(private incidenciaService: IncidenciaService,private authService: AuthService,private router: Router){
   }
@@ -41,6 +42,57 @@ export class ListarIncidenciaComponent implements OnInit {
 
       }
     )
+  }
+
+  getIconForTicket(ticket: Ticket): string {
+    console.log(ticket);
+    let latestStatus: TicketEstatus | null = null;
+    let idEstatus: number | null = null;
+
+    if (ticket.estatus && ticket.estatus.length > 0) {
+        ticket.estatus.forEach((status) => {
+            if (!latestStatus || status.id_ticket_estatus > latestStatus!.id_ticket_estatus) {
+              latestStatus = status;
+              // Afirmación de tipo explícita a 'number'
+              idEstatus = 'id_estatus' in status ? status['id_estatus'] as number : null;
+            }
+        });
+    }
+    
+    // Lógica para determinar el ícono basada en el estatus más reciente
+    if (idEstatus === 3) {
+      console.log("idEstatus"+idEstatus);
+        return 'fas fa-check text-success';  // Icono de verificación para el estatus 3
+    } else {
+
+    if (ticket.usuario) {
+      const deptId = parseInt(ticket.usuario.id_departamento, 10);
+     
+      if (deptId === 4) {
+       
+        const now = new Date();
+        const ticketDate = new Date(ticket.fecha_alta);
+        const diff = (now.getTime() - ticketDate.getTime()) / 1000 / 60;
+        console.log("diff"+diff);
+        if (diff >= 0 && diff <= 60) {
+          return 'fas fa-exclamation-circle text-success';
+        } else if (diff > 60 && diff <= 180) {
+          return 'fas fa-exclamation-triangle text-warning';
+        } else if (diff > 180) {
+          return 'fa fa-exclamation-triangle text-danger';
+        }
+      }else{
+        const now = new Date();
+        const ticketDate = new Date(ticket.fecha_alta);
+        const diff = (now.getTime() - ticketDate.getTime()) / 1000 / 60;
+        console.log("diff"+diff)
+        if (diff > 180) {
+          return 'fa fa-exclamation-triangle text-warning';
+        }
+      }
+    }
+    return '';
+  }
   }
 
 

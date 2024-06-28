@@ -107,6 +107,20 @@ export class RegistroComponent implements OnInit {
     );
   }
 
+  validarCorreoExistente()
+  {
+    //console.log("llego aqui");
+    const email = this.myForm.get('email')?.value;
+    this.usuarioServices.verificarCorreoExiste(email).subscribe(
+      existe =>{
+        if (existe === true) {
+          this.myForm.get('email')?.setErrors({ 'usuarioExistente': true });
+        }
+      }, 
+      error => console.error('Error en la solicitud de verificación:', error)
+    );
+  }
+
 
 
 }

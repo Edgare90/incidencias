@@ -15,6 +15,7 @@ export class LoginComponent {
     constructor(private formulario: FormBuilder,private authService: AuthService, private router:Router,private snackBar: MatSnackBar){}
     showEmailErrorIcon = false;
     showPassErrorIcon = false;
+    isLoading = false;
     form: FormGroup = this.formulario.group({
       email: ['',Validators.required],
       password: ['', Validators.required]
@@ -46,18 +47,25 @@ export class LoginComponent {
       
       if(this.form.valid)
       {
+        this.isLoading = true; 
         const { email, password } = this.form.value;
         this.authService.login(email, password).subscribe(
           (response) => {
+            this.isLoading = false; 
             console.log('Login successful', response);
-            this.snackBar.open(response.message, 'Cerrar',{
-              duration: 3000,
+            this.snackBar.open(response.message+'. Wait..', 'Cerrar',{
+              duration: 2000,
             });
-            this.router.navigate(['/agrega-ticket']); 
+            setTimeout(() => {
+              this.router.navigate(['/agrega-ticket']);
+            }, 3000); 
           },
           (error) => {
+            this.isLoading = false;
             console.error('Login failed', error);
-            // Manejar errores, mostrar mensajes de error, etc.
+            this.snackBar.open('Error en Usuario y/o contraseña', 'Cerrar', {
+              duration: 3000,
+            });
           }
         );
       }

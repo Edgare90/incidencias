@@ -69,7 +69,7 @@ export class AgregarIncidenciaComponent implements OnInit {
         dirigidoA: ['', Validators.required],
         comentario: ['', Validators.required],
         files: [null, [Validators.required, this.fileExtensionValidator(['jpg', 'png', 'xls', 'doc', 'pdf'])]], 
-        derivado: ['no', Validators.required],
+        derivado: ['', Validators.required],
         ticketAnterior: ['']
       });
     }

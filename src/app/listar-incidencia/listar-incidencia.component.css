@@ -9,6 +9,17 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
   
   tr {
     animation: fadeInRow 1s; /* Aumenta la duración de la animación */
@@ -50,9 +61,9 @@
   }
 
   .table-striped tbody tr:hover {
-    background-color: #f8f9fa; /* Cambia esto al color de fondo que prefieras para el hover */
-    transform: scale(1.02); /* Efecto de escalado para hacer la fila ligeramente más grande */
-    transition: background-color 0.5s ease, transform 0.5s ease; /* Suaviza la transición de los cambios */
+    /*background-color: #f8f9fa; 
+    transform: scale(1.02);
+    transition: background-color 0.5s ease, transform 0.5s ease;*/
   }
 
   
@@ -62,4 +73,46 @@
   
   .table-container {
     margin-top: 20px; /* Espacio adicional en la parte superior de la tabla */
+  }
+
+  .title-container {
+    text-align: center;
+    margin-bottom: 20px; /* Añade un poco de espacio debajo del título */
+  }
+  
+  .title-container {
+    text-align: left;
+    margin-left: 20px; /* Añade un margen a la izquierda para no pegar el texto al borde */
+    margin-bottom: 20px; /* Espacio debajo del título */
+    overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+  }
+  
+  .title-container {
+    text-align: left;
+    margin-left: 20px; /* Margen a la izquierda para todo el contenedor */
+    margin-bottom: 20px; /* Espacio debajo del título */
+    overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+  }
+  
+  .title-container h1 {
+    position: relative;
+    padding-bottom: 10px; /* Espacio para la línea bajo el texto */
+    padding-left: 20px; /* Agrega espacio a la izquierda del texto */
+    opacity: 0; /* Inicia invisible para la animación */
+    transform: translateX(-100%); /* Comienza fuera del área visible */
+    animation: slideIn 0.8s forwards; /* Animación para deslizar hacia dentro */
+  }
+  
+  .title-container h1:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 50%; /* Ancho del pseudoelemento ajustado al 50% */
+    background-color: #007bff;
+  }
+
+  .fa-exclamation-triangle {
+    font-size: 1.2rem;
   }

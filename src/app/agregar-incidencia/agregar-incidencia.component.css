@@ -1,3 +1,14 @@
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .error-message {
     color: #fff; 
     background-color: #ff6961; /* Fondo de color diferente */
@@ -25,6 +36,7 @@
   }
   
   .form-group {
+    position: relative;
     display: flex;
     flex-direction: column; /* Elementos de formulario en forma vertical */
     width: 100%; /* Ocupa todo el ancho disponible del contenedor */
@@ -86,3 +98,29 @@
     height: 40px;
     width: 40px;
   }
+
+  .title-container {
+  text-align: left;
+  margin-left: 20px; /* Margen a la izquierda para todo el contenedor */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+}
+
+.title-container h1 {
+  position: relative;
+  padding-bottom: 10px; /* Espacio para la línea bajo el texto */
+  padding-left: 20px; /* Agrega espacio a la izquierda del texto */
+  opacity: 0; /* Inicia invisible para la animación */
+  transform: translateX(-100%); /* Comienza fuera del área visible */
+  animation: slideIn 0.8s forwards; /* Animación para deslizar hacia dentro */
+}
+
+.title-container h1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 50%; /* Ancho del pseudoelemento ajustado al 50% */
+  background-color: #007bff;
+}

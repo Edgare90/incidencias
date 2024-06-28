@@ -1,7 +1,12 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div class="title-container">
+  <h1>Tickets de mi Departamento</h1>
+</div>
 <div class="table-container">
     <table class="table table-striped">
       <thead class="table-header">
         <tr>
+          <th scope="col"></th>
           <th scope="col">Fecha</th>
           <th scope="col">ID</th>
           <th scope="col">Usuario</th>
@@ -10,6 +15,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let ticket of paginatedTickets">
+          <td><i [class]="getIconForTicket(ticket)"></i></td>
           <td>{{ ticket.fecha_alta}}</td>
           <td>{{ ticket.id_ticket}}</td>
           <td>{{ ticket.usuario?.usuario}}</td>

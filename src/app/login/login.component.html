@@ -20,7 +20,8 @@
         </div>
       </div>
       <div class="button-container">
-        <button type="submit">Ingresar</button>
+        <button type="submit" [disabled]="isLoading">Ingresar</button>
+        <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i>
       </div>
     </form>
   </div>

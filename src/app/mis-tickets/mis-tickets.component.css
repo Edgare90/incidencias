@@ -10,6 +10,17 @@
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 tr {
   animation: fadeInRow 1s; /* Aumenta la duración de la animación */
 }
@@ -53,6 +64,32 @@ nav {
   background-color: #f8f9fa; /* Cambia esto al color de fondo que prefieras para el hover */
   transform: scale(1.02); /* Efecto de escalado para hacer la fila ligeramente más grande */
   transition: background-color 0.5s ease, transform 0.5s ease; /* Suaviza la transición de los cambios */
+}
+
+.title-container {
+  text-align: left;
+  margin-left: 20px; /* Margen a la izquierda para todo el contenedor */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+}
+
+.title-container h1 {
+  position: relative;
+  padding-bottom: 10px; /* Espacio para la línea bajo el texto */
+  padding-left: 20px; /* Agrega espacio a la izquierda del texto */
+  opacity: 0; /* Inicia invisible para la animación */
+  transform: translateX(-100%); /* Comienza fuera del área visible */
+  animation: slideIn 0.8s forwards; /* Animación para deslizar hacia dentro */
+}
+
+.title-container h1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 50%; /* Ancho del pseudoelemento ajustado al 50% */
+  background-color: #007bff;
 }
 
   
