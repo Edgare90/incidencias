@@ -68,7 +68,7 @@ export class AgregarIncidenciaComponent implements OnInit {
       this.myForm = this.formulario.group({
         dirigidoA: ['', Validators.required],
         comentario: ['', Validators.required],
-        files: [null, [Validators.required, this.fileExtensionValidator(['jpg', 'png', 'xls', 'doc', 'pdf'])]], 
+        files: [null, [this.fileExtensionValidator(['jpg', 'png', 'xls', 'doc', 'pdf'])]], 
         derivado: ['', Validators.required],
         ticketAnterior: ['']
       });
@@ -124,8 +124,10 @@ export class AgregarIncidenciaComponent implements OnInit {
         formData.append('comentario', this.myForm.get('comentario')?.value);
 
         const files = this.myForm.get('files')?.value;
-        for (let i = 0; i < files.length; i++) {
-          formData.append('files[]', files[i]);
+        if (files && files.length > 0) {
+          for (let i = 0; i < files.length; i++) {
+            formData.append('files[]', files[i]);
+          }
         }
 
         formData.append('derivado', derivado);
