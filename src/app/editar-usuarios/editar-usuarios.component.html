@@ -43,7 +43,7 @@
         <mat-label>Departamento</mat-label>
         <mat-select formControlName="departamento" placeholder="Seleccione un departamento">
           <mat-option *ngFor="let depto of datosDepartamentos" [value]="depto.id_departamento">
-            {{ depto.departamento }} <!-- Ajusta según la propiedad real de nombre en tu interfaz Usuario -->
+            {{ depto.departamento }}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -1,26 +1,25 @@
 <nav class="menu" style="display: flex; justify-content: center; background-color: #f0f0f0; padding: 10px 0;">
   <div class="logo-container">
-    <img src="path/to/your/logo.png" alt="Logo shades" class="menu-logo"> <!-- Asegúrate de cambiar 'path/to/your/logo.png' al verdadero camino del icono -->
+    <img src="../../assets/logos.png" alt="Logo shades" class="menu-logo">
   </div>
   <button class="menu-toggle" aria-label="Abrir menú" (click)="toggleMenu()" [class.active]="isMenuOpen">☰</button>
     <ul class="menu-list" [class.open]="isMenuOpen">
-      <li class="menu-item">
-        <a routerLink="/" class="menu-link">Inicio</a>
-      </li>
-      <li class="menu-item has-submenu">
+      
+      <li *ngIf="authService.hasAccess()" class="menu-item has-submenu">
         <a href="#" class="menu-link">Usuarios</a>
         <ul class="submenu">
           <li class="submenu-item"><a routerLink="/registro">Registra Usuario</a></li>
           <li class="submenu-item"><a routerLink="/listar-usuarios">Lista de Usuarios</a></li>
         </ul>
       </li>
-      <li class="menu-item has-submenu">
+      <li *ngIf="authService.hasAccess()" class="menu-item has-submenu">
         <a href="#" class="menu-link">Departamentos</a>
         <ul class="submenu">
             <li class="submenu-item"><a routerLink="/agregar-departamentos">Agregar Departamentos</a></li>
             <li class="submenu-item"><a routerLink="/lista-departamentos">Lista de Departamentos</a></li>
           </ul>
       </li>
+      
       <li class="menu-item">
         <a routerLink="/agrega-ticket" class="menu-link">Agregar Ticket</a>
       </li>

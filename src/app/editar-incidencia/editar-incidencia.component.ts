@@ -71,6 +71,7 @@ export class EditarIncidenciaComponent implements OnInit {
   showErrorMessage: boolean = false;
   scrollState = 'hide'; 
   showForm: boolean = false;
+  isLoading: boolean = false;
   departamentosIncluidos: number[] = [];
   previousTicketDetails: any[] = [];
 
@@ -155,6 +156,7 @@ export class EditarIncidenciaComponent implements OnInit {
     }
     
     fetchTicketData(ticketId: string) {
+            this.isLoading = true;
             this.incidenciaService.getTicketById(this.ticketId).subscribe(
             (data: Ticket | Ticket[]) =>{
               if (Array.isArray(data) && data.length > 0) {
@@ -222,7 +224,7 @@ export class EditarIncidenciaComponent implements OnInit {
               let ticketAnteriorString = this.mis_tickets[0].ticket_anterior.toString();
               this.fetchPreviousTicketsData(ticketAnteriorString);
             }
-
+            this.isLoading = false;
             },
             (error)=>{
               console.log("Error al obtener el ticket", error);
@@ -320,7 +322,7 @@ export class EditarIncidenciaComponent implements OnInit {
     const lastStatus = lastTicket.estatus?.[lastTicket.estatus.length - 1];
     if (!lastStatus) {
       console.error('No status available for the last ticket.');
-      return;  // Puedes manejar este caso como consideres apropiado.
+      return;
     }
   
     this.lastStatusColor = this.getStatusColor(lastStatus.estatus_info.id_estatus);
@@ -329,7 +331,6 @@ export class EditarIncidenciaComponent implements OnInit {
 
 
   ampliarImagen(imagenUrl: string) {
-    // Aquí puedes abrir un modal o lightbox con la imagen ampliada
     console.log('Imagen ampliada:', imagenUrl);
   }
 
@@ -355,18 +356,14 @@ export class EditarIncidenciaComponent implements OnInit {
       return;
     }
     
-     // Acceder al contenido del modal
      const modalContent = this.modalContent.nativeElement.innerHTML;
     console.log(modalContent);
 
-  // Abrir una nueva ventana de impresión
   const ventanaImpresion = window.open('', '_blank');
 
   if (ventanaImpresion) {
-    // Escribir el contenido del modal en la nueva ventana
     ventanaImpresion.document.write(modalContent);
 
-    // Imprimir la nueva ventana
     ventanaImpresion.print();
   } else {
     console.error('No se pudo abrir la ventana de impresión.');
@@ -392,9 +389,9 @@ export class EditarIncidenciaComponent implements OnInit {
       const contenido = document.getElementById("contenidoModal");
       console.log('Contenido:', contenido);
       if (contenido) {
-        contenido.innerHTML = ""; // Limpiar el contenido anterior
+        contenido.innerHTML = "";
     
-        const extension = imagen.split('.').pop(); // Obtener la extensión del archivo
+        const extension = imagen.split('.').pop();
         console.log('Extension:', extension);
         if (extension === "JPG" || extension === "jpg" || 
             extension === "JPEG" || extension === "jpeg" || 
@@ -434,10 +431,9 @@ export class EditarIncidenciaComponent implements OnInit {
   const link = document.createElement('a');
   link.href = url;
 
-  // Verificar si la URL contiene al menos un carácter '/'
   const fileName = url.includes('/') ? url.split('/').pop()! : 'archivo';
   
-  link.download = fileName; // Utilizar un nombre predeterminado si la URL no contiene un carácter '/'
+  link.download = fileName; 
   link.target = "_blank";
 
   document.body.appendChild(link);
@@ -467,16 +463,16 @@ obtenerExtension(nombreArchivo: string): string {
 fileExtensionValidator(allowedExtensions: string[]) {
   return (control: any) => {
     if (!control.value) {
-      return null; // No hay archivo seleccionado, no hay error
+      return null; 
     }
 
     const fileExtension = control.value[0].name.split('.').pop().toLowerCase();
 
     if (allowedExtensions.indexOf(fileExtension) === -1) {
-      return { invalidExtension: true }; // Error si la extensión no está permitida
+      return { invalidExtension: true };
     }
 
-    return null; // Archivo válido
+    return null; 
   };
 }
 

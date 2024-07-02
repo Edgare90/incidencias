@@ -43,7 +43,6 @@ export class ListarPefilesComponent implements OnInit {
           duration: 3000,
         });
 
-          // Actualiza la lista usando el servicio
           this.perfilesService.getPeriles().subscribe(
             (data) => {
               this.perfilesDataService.actualizarListaPerfiles(data);

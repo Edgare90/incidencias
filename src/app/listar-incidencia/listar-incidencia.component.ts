@@ -53,16 +53,15 @@ export class ListarIncidenciaComponent implements OnInit {
         ticket.estatus.forEach((status) => {
             if (!latestStatus || status.id_ticket_estatus > latestStatus!.id_ticket_estatus) {
               latestStatus = status;
-              // Afirmación de tipo explícita a 'number'
               idEstatus = 'id_estatus' in status ? status['id_estatus'] as number : null;
             }
         });
     }
     
-    // Lógica para determinar el ícono basada en el estatus más reciente
+
     if (idEstatus === 3) {
       console.log("idEstatus"+idEstatus);
-        return 'fas fa-check text-success';  // Icono de verificación para el estatus 3
+        return 'fas fa-check text-success'; 
     } else {
 
     if (ticket.usuario) {

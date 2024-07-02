@@ -52,9 +52,9 @@ export class LoginComponent {
         this.authService.login(email, password).subscribe(
           (response) => {
             this.isLoading = false; 
-            console.log('Login successful', response);
+            //console.log('Login successful', response);
             this.snackBar.open(response.message+'. Wait..', 'Cerrar',{
-              duration: 2000,
+              duration: 1000,
             });
             setTimeout(() => {
               this.router.navigate(['/agrega-ticket']);

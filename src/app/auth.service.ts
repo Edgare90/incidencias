@@ -12,7 +12,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     const formData = { email, password };
-    console.log(formData);
+    //console.log(formData);
     const url = `http://127.0.0.1:8000/api/login`;
     return this.http.post(url, formData).pipe(
       tap((response:any) =>{
@@ -54,5 +54,10 @@ export class AuthService {
     localStorage.removeItem(this.authTokenKey);
     localStorage.removeItem(this.userDataKey);
     localStorage.removeItem('token');
+  }
+
+  hasAccess(): boolean {
+    const userData = JSON.parse(localStorage.getItem(this.userDataKey) || '{}');
+    return [1, 3].includes(userData.id_usuario);
   }
 }

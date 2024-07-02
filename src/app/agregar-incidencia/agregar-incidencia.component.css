@@ -11,50 +11,50 @@
 
 .error-message {
     color: #fff; 
-    background-color: #ff6961; /* Fondo de color diferente */
+    background-color: #ff6961;
     padding: 10px;
     border-radius: 8px;
     margin-top: 10px;
-    font-weight: bold; /* Estilo de fuente llamativo */
-    border: 2px solid #d32f2f; /* Bordes decorativos */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: flex; /* Para alinear el icono y el texto */
-    align-items: center; /* Para alinear verticalmente */
+    font-weight: bold;
+    border: 2px solid #d32f2f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
 }
 
 .error-icon {
-    color: #ffeb3b; /* Amarillo */
-    margin-right: 8px; /* Espacio entre el icono y el texto */
-    font-size: 20px; /* Tamaño del icono */
+    color: #ffeb3b;
+    margin-right: 8px;
+    font-size: 20px;
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra los elementos en la dirección transversal */
+    align-items: center;
     padding: 20px;
   }
   
   .form-group {
     position: relative;
     display: flex;
-    flex-direction: column; /* Elementos de formulario en forma vertical */
-    width: 100%; /* Ocupa todo el ancho disponible del contenedor */
-    max-width: 500px; /* Máximo ancho del formulario */
-    margin-bottom: 20px; /* Espacio entre grupos de formulario */
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
   }
   
   .form-control {
     transition: border-color 0.3s, box-shadow 0.3s;
     padding: 10px;
-    margin-top: 8px; /* Espacio entre etiqueta y campo */
-    border: 1px solid #ccc; /* Borde sutil para los campos */
-    border-radius: 8px; /* Bordes redondeados para los campos */
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
   }
 
   .form-control:focus {
-    border-color: #0056b3; /* Cambia el color del borde al enfocar */
-    box-shadow: 0 0 8px rgba(0,86,179,0.6); /* Añade un sombreado ligero alrededor del campo */
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0,86,179,0.6);
   }
   
   button {
@@ -69,16 +69,16 @@
   
   
   button:hover, button:focus {
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón o enfocar */
-    background-color: #0056b3; /* Cambia el color al interactuar */
+    transform: scale(1.05);
+    background-color: #0056b3;
   }
   
   label {
-    font-weight: bold; /* Hace las etiquetas en negrita para mejor legibilidad */
+    font-weight: bold;
   }
   
   select.form-control, input.form-control, textarea.form-control {
-    width: 100%; /* Asegura que los elementos de entrada usen todo el ancho disponible */
+    width: 100%;
   }
 
   .input-container {
@@ -101,18 +101,18 @@
 
   .title-container {
   text-align: left;
-  margin-left: 20px; /* Margen a la izquierda para todo el contenedor */
-  margin-bottom: 20px; /* Espacio debajo del título */
-  overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+  margin-left: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .title-container h1 {
   position: relative;
-  padding-bottom: 10px; /* Espacio para la línea bajo el texto */
-  padding-left: 20px; /* Agrega espacio a la izquierda del texto */
-  opacity: 0; /* Inicia invisible para la animación */
-  transform: translateX(-100%); /* Comienza fuera del área visible */
-  animation: slideIn 0.8s forwards; /* Animación para deslizar hacia dentro */
+  padding-bottom: 10px;
+  padding-left: 20px;
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: slideIn 0.8s forwards;
 }
 
 .title-container h1:after {
@@ -121,6 +121,6 @@
   left: 0;
   bottom: 0;
   height: 2px;
-  width: 50%; /* Ancho del pseudoelemento ajustado al 50% */
+  width: 50%;
   background-color: #007bff;
 }

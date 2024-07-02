@@ -58,7 +58,8 @@
             <input type="text" id="ticket_anterior" formControlName="ticketAnterior">
         </div>
 
-        <button mat-raised-button color="primary" type="submit">Enviar</button>
+        <img src="../../assets/loading.gif" alt="Cargando..." *ngIf="isLoading">
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Enviar</button>
     </form>
 
 </div>

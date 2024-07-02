@@ -22,64 +22,64 @@
 }
 
 tr {
-  animation: fadeInRow 1s; /* Aumenta la duración de la animación */
+  animation: fadeInRow 1s; 
 }
 
 .edit-button {
-  transition: background-color 0.5s, transform 0.5s; /* Aumenta la duración de las transiciones */
+  transition: background-color 0.5s, transform 0.5s; 
 }
 
 .edit-button {
-  background-color: #007bff; /* Color de fondo normal */
-  color: #fff; /* Color de texto normal */
+  background-color: #007bff; 
+  color: #fff; 
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para el color de fondo y transformación */
+  transition: background-color 0.3s, transform 0.3s; 
 }
 
 .edit-button:hover {
-  background-color: #0056b3; /* Cambia el color de fondo al pasar el cursor */
-  transform: translateY(-3px); /* Efecto de salto */
+  background-color: #0056b3; 
+  transform: translateY(-3px); 
 }
 
 
 .table-header {
-  background-color: #007bff; /* Color de fondo del encabezado */
-  color: #fff; /* Color del texto en el encabezado */
+  background-color: #007bff; 
+  color: #fff; 
 }
 
 .table-container {
-  width: 80%; /* Ajusta este valor al ancho deseado */
-  margin: auto; /* Centra la tabla horizontalmente */
+  width: 80%; 
+  margin: auto; 
 }
 
 nav {
-  width: 80%; /* Asegúrate de que coincida con el ancho del .table-container */
-  margin: auto; /* Centra la paginación horizontalmente */
+  width: 80%; 
+  margin: auto; 
 }
 
 .table-striped tbody tr:hover {
-  background-color: #f8f9fa; /* Cambia esto al color de fondo que prefieras para el hover */
-  transform: scale(1.02); /* Efecto de escalado para hacer la fila ligeramente más grande */
-  transition: background-color 0.5s ease, transform 0.5s ease; /* Suaviza la transición de los cambios */
+  background-color: #f8f9fa; 
+  transform: scale(1.02); 
+  transition: background-color 0.5s ease, transform 0.5s ease; 
 }
 
 .title-container {
   text-align: left;
-  margin-left: 20px; /* Margen a la izquierda para todo el contenedor */
-  margin-bottom: 20px; /* Espacio debajo del título */
-  overflow: hidden; /* Esconde cualquier parte del título que se anime desde afuera */
+  margin-left: 20px;
+  margin-bottom: 20px; 
+  overflow: hidden; 
 }
 
 .title-container h1 {
   position: relative;
-  padding-bottom: 10px; /* Espacio para la línea bajo el texto */
-  padding-left: 20px; /* Agrega espacio a la izquierda del texto */
-  opacity: 0; /* Inicia invisible para la animación */
-  transform: translateX(-100%); /* Comienza fuera del área visible */
-  animation: slideIn 0.8s forwards; /* Animación para deslizar hacia dentro */
+  padding-bottom: 10px;
+  padding-left: 20px;
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: slideIn 0.8s forwards; 
 }
 
 .title-container h1:after {
@@ -88,7 +88,7 @@ nav {
   left: 0;
   bottom: 0;
   height: 2px;
-  width: 50%; /* Ancho del pseudoelemento ajustado al 50% */
+  width: 50%; 
   background-color: #007bff;
 }
 

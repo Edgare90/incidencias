@@ -1,5 +1,6 @@
 
 <!-- <button (click)="mostrarModal(content)">Imprimir Ticket</button> -->
+<img src="../../assets/loading.gif" alt="Cargando..." *ngIf="isLoading" class="carga-gif">
 
 <div *ngFor="let ticket of mis_tickets" class="ticket-container">
   <h1>

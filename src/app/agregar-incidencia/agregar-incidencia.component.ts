@@ -62,6 +62,7 @@ export class AgregarIncidenciaComponent implements OnInit {
     datosDepartamentos: Departamentos[] = [];
     isDerivado: boolean = false;
     showErrorMessage: boolean = false;
+    isLoading: boolean = false;
 
     constructor(private formulario: FormBuilder, private deptoService: DepartamentoService, private incidenciaSerive: IncidenciaService,private snackBar: MatSnackBar)
     {
@@ -134,15 +135,18 @@ export class AgregarIncidenciaComponent implements OnInit {
         formData.append('ticketAnterior', ticketAnterior);
 
         console.log(formData);
+        this.isLoading = true;
         this.incidenciaSerive.guardarTicket(formData).subscribe(
           (response) => {
             this.snackBar.open(response.mensaje, 'Cerrar',{
               duration: 3000,
             });
             this.myForm.reset();
+            this.isLoading = false;
           },
           (error) => {
             console.error(error);
+            this.isLoading = false;
           }
         )
       }
